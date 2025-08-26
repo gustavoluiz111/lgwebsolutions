@@ -3,92 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quer namorar comigo?</title>
-  <style>
-    body {
-      text-align: center;
-      font-family: Arial, sans-serif;
-      background-color: #ffe6f0;
-      margin: 0;
-      padding-top: 100px;
-    }
-
-    h1 {
-      font-size: 32px;
-      color: #ff3399;
-      margin: 20px;
-    }
-
-    .button-container {
-      margin-top: 40px;
-      position: relative;
-      height: 300px;
-      width: 100%;
-      max-width: 400px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    button {
-      padding: 12px 24px;
-      font-size: 18px;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      position: absolute;
-      transition: all 0.3s ease;
-    }
-
-    #yesBtn {
-      background-color: #4CAF50;
-      color: white;
-      left: 25%;
-      top: 100px;
-    }
-
-    #noBtn {
-      background-color: #f44336;
-      color: white;
-      left: 55%;
-      top: 100px;
-    }
-  </style>
+  <title>Atena - Plataforma de Estudos</title>
+  <!-- Fonte variável compatível -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,wdth,ital@8..144,100..1000,50..200,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/gustavoluiz111/lgwebsolutions/main/logoatena.png" alt="Logo Atena">
+    </div>
+    <nav>
+      <a href="#" class="btn-primary">Entrar</a>
+    </nav>
+  </header>
 
-  <h1>Quer namorar comigo? 💘</h1>
+  <!-- Hero Section -->
+  <section class="hero fade-in">
+    <h1 class="text-pressure">Prepare-se para o sucesso acadêmico</h1>
+    <p>Turmas, simulados, biblioteca e fórum — tudo em um só lugar.</p>
+    <a href="#" class="btn-primary">Começar agora</a>
+  </section>
 
-  <div class="button-container" id="container">
-    <button id="yesBtn">Sim 💖</button>
-    <button id="noBtn">Não ❌</button>
-  </div>
+  <!-- Features Section -->
+  <section class="features fade-in">
+    <div class="card">
+      <h2>📚 Biblioteca</h2>
+      <p>Fichas, simulados e provas antigas organizadas para você.</p>
+    </div>
+    <div class="card">
+      <h2>👥 Fórum</h2>
+      <p>Tire dúvidas, discuta e aprenda junto com a turma.</p>
+    </div>
+    <div class="card">
+      <h2>📊 Painel</h2>
+      <p>Acompanhe seu progresso, estatísticas e ranking.</p>
+    </div>
+  </section>
 
-  <script>
-    const noBtn = document.getElementById('noBtn');
-    const container = document.getElementById('container');
+  <!-- Footer -->
+  <footer class="footer fade-in">
+    <p>&copy; 2025 Atena. Todos os direitos reservados.</p>
+  </footer>
 
-    function moveButton() {
-      const maxX = container.offsetWidth - noBtn.offsetWidth;
-      const maxY = container.offsetHeight - noBtn.offsetHeight;
-      const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY);
-      noBtn.style.left = `${randomX}px`;
-      noBtn.style.top = `${randomY}px`;
-    }
-
-    // Funciona no PC (mouse)
-    noBtn.addEventListener('mouseover', moveButton);
-
-    // Funciona no celular (toque)
-    noBtn.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      moveButton();
-    });
-
-    document.getElementById('yesBtn').addEventListener('click', () => {
-      alert('Eu sabia! 💘💍');
-    });
-  </script>
-
+  <script src="main.js"></script>
 </body>
 </html>
