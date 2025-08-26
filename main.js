@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   // ==========================
-  // Scroll suave para links
+  // Scroll suave
   // ==========================
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener("click", e => {
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ==========================
-  // Fade-in ao scroll
+  // Fade-in
   // ==========================
   const faders = document.querySelectorAll(".fade-in");
   const appearOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
@@ -27,56 +27,54 @@ document.addEventListener("DOMContentLoaded", () => {
   faders.forEach(fader => appearOnScroll.observe(fader));
 
   // ==========================
-  // TextPressure-like efeito
+  // TextPressure efeito avançado
   // ==========================
   const heroText = document.querySelector(".text-pressure");
-  if(heroText){
-    const chars = heroText.textContent.split("");
-    heroText.textContent = "";
-    const spans = chars.map(c => {
-      const span = document.createElement("span");
-      span.textContent = c;
-      span.style.display = "inline-block";
-      span.style.transition = "all 0.1s ease-out";
-      heroText.appendChild(span);
-      return span;
+  if(!heroText) return;
+
+  // Cria spans para cada letra
+  const chars = heroText.textContent.split("");
+  heroText.textContent = "";
+  const spans = chars.map(c => {
+    const span = document.createElement("span");
+    span.textContent = c;
+    span.style.display = "inline-block";
+    span.style.transition = "font-variation-settings 0.1s ease-out";
+    heroText.appendChild(span);
+    return span;
+  });
+
+  // Cursor e posição do mouse
+  let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
+  let cursor = { ...mouse };
+  window.addEventListener("mousemove", e => { cursor.x = e.clientX; cursor.y = e.clientY; });
+  window.addEventListener("touchmove", e => { const t = e.touches[0]; cursor.x = t.clientX; cursor.y = t.clientY; }, { passive: false });
+
+  const dist = (a,b) => Math.hypot(b.x-a.x, b.y-a.y);
+
+  // Atualiza animação
+  const animate = () => {
+    // suaviza o cursor
+    mouse.x += (cursor.x - mouse.x) / 15;
+    mouse.y += (cursor.y - mouse.y) / 15;
+
+    const rect = heroText.getBoundingClientRect();
+    const maxDist = rect.width / 2;
+
+    spans.forEach(span => {
+      const spanRect = span.getBoundingClientRect();
+      const center = { x: spanRect.left + spanRect.width/2, y: spanRect.top + spanRect.height/2 };
+      const d = dist(mouse, center);
+
+      // calcula valores de wght, wdth, ital
+      const wght = Math.floor(Math.max(100, 900 - (d / maxDist) * 800));
+      const wdth = Math.floor(Math.max(50, 200 - (d / maxDist) * 150));
+      const ital = Math.min(1, (d / maxDist));
+
+      span.style.fontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${ital.toFixed(2)}`;
     });
 
-    const containerRect = heroText.getBoundingClientRect();
-    let mouse = { x: containerRect.left + containerRect.width/2, y: containerRect.top + containerRect.height/2 };
-    let cursor = { ...mouse };
-
-    // Atualiza posição do cursor
-    window.addEventListener("mousemove", (e) => { cursor.x = e.clientX; cursor.y = e.clientY; });
-    window.addEventListener("touchmove", (e) => {
-      const t = e.touches[0];
-      cursor.x = t.clientX; cursor.y = t.clientY;
-    }, { passive: false });
-
-    const dist = (a,b) => Math.sqrt((b.x - a.x)**2 + (b.y - a.y)**2);
-    const maxDist = containerRect.width / 2;
-
-    // Animação
-    const animate = () => {
-      mouse.x += (cursor.x - mouse.x)/15;
-      mouse.y += (cursor.y - mouse.y)/15;
-
-      spans.forEach(span => {
-        const rect = span.getBoundingClientRect();
-        const charCenter = { x: rect.x + rect.width/2, y: rect.y + rect.height/2 };
-        const d = dist(mouse, charCenter);
-
-        const getAttr = (distance, minVal, maxVal) => Math.max(minVal, maxVal - Math.abs((maxVal*distance)/maxDist) + minVal);
-
-        const wdth = Math.floor(getAttr(d, 50, 200));
-        const wght = Math.floor(getAttr(d, 100, 900));
-        const ital = getAttr(d, 0, 1).toFixed(2);
-
-        span.style.fontVariationSettings = `'wght' ${wght}, 'wdth' ${wdth}, 'ital' ${ital}`;
-      });
-
-      requestAnimationFrame(animate);
-    };
-    animate();
-  }
+    requestAnimationFrame(animate);
+  };
+  animate();
 });
