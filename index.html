@@ -8,7 +8,7 @@
 </head>
 <body>
   <!-- ========== HEADER ========== -->
-  <header class="nav">
+  <header class="nav fade-in">
     <div class="container nav__content">
       <a href="#" class="logo">
         <img src="assets/logoatena.png" alt="Logo Atena">
@@ -20,14 +20,20 @@
         <a href="#depoimentos">Depoimentos</a>
         <a href="#contato">Contato</a>
       </nav>
-      <button id="theme-toggle" class="btn--ghost">☀️ / 🌙</button>
+      <!-- BOTÃO TEMA -->
+      <label class="switch">
+        <span class="sun">☀️</span>
+        <span class="moon">🌙</span>
+        <input type="checkbox" class="input" id="theme-toggle">
+        <span class="slider"></span>
+      </label>
     </div>
   </header>
 
   <!-- ========== HERO / HOME ========== -->
-  <section id="home" class="hero">
+  <section id="home" class="hero fade-in">
     <div class="container hero__content">
-      <h1>Aprenda no <span>Atena</span></h1>
+      <h1>Aprenda no <span class="atenacolor">Atena</span></h1>
       <p>Sua plataforma de estudos digital para alcançar novos níveis de conhecimento.</p>
       <div class="hero__btns">
         <a href="#cursos" class="btn">Explorar Cursos</a>
@@ -37,23 +43,23 @@
   </section>
 
   <!-- ========== CURSOS POPULARES ========== -->
-  <section id="cursos" class="section">
+  <section id="cursos" class="section fade-in">
     <div class="container">
       <h2>Cursos Populares</h2>
       <div class="grid cards">
-        <div class="card">
+        <div class="card fade-in">
           <h3>SSA 1,2 e 3</h3>
           <p>Se prepare com os melhores professores.</p>
           <a href="#" class="btn--ghost">Ver mais</a>
         </div>
-        <div class="card">
+        <div class="card fade-in">
           <h3>Pré-ENEM</h3>
           <p>Antes do resultado, vem o esforço.</p>
           <a href="#" class="btn--ghost">Ver mais</a>
         </div>
-        <div class="card">
-          <h3>Redaçao</h3>
-          <p>Redija textos com excelencia.</p>
+        <div class="card fade-in">
+          <h3>Redação</h3>
+          <p>Redija textos com excelência.</p>
           <a href="#" class="btn--ghost">Ver mais</a>
         </div>
       </div>
@@ -61,33 +67,33 @@
   </section>
 
   <!-- ========== COMO FUNCIONA ========== -->
-  <section id="como-funciona" class="section alt">
+  <section id="como-funciona" class="section alt fade-in">
     <div class="container">
       <h2>Como Funciona</h2>
       <div class="grid steps">
-        <div class="step">📋 <p>Cadastre-se</p></div>
-        <div class="step">📚 <p>Escolha uma turma</p></div>
-        <div class="step">💻 <p>Estude presencialmente e online</p></div>
-        <div class="step">🏆 <p>Se dedique e alcance seus objetivos</p></div>
+        <div class="step fade-in">📋 <p>Cadastre-se</p></div>
+        <div class="step fade-in">📚 <p>Escolha uma turma</p></div>
+        <div class="step fade-in">💻 <p>Estude presencialmente e online</p></div>
+        <div class="step fade-in">🏆 <p>Se dedique e alcance seus objetivos</p></div>
       </div>
     </div>
   </section>
 
   <!-- ========== DEPOIMENTOS ========== -->
-  <section id="depoimentos" class="section">
+  <section id="depoimentos" class="section fade-in">
     <div class="container">
       <h2>O que nossos alunos dizem</h2>
       <div class="grid testimonials">
-        <div class="card">
+        <div class="card fade-in">
           <p>"A Atena mudou a forma como aprendo, é simples e prática!"</p>
           <h4>Maria Silva</h4>
         </div>
-        <div class="card">
+        <div class="card fade-in">
           <p>"Os cursos são incríveis e já me ajudaram na escola."</p>
           <h4>João Pereira</h4>
         </div>
-        <div class="card">
-          <p>"Quem ensina la e incrivel,eles sabem dar aula."</p>
+        <div class="card fade-in">
+          <p>"Quem ensina lá é incrível, eles sabem dar aula."</p>
           <h4>Ana Costa</h4>
         </div>
       </div>
@@ -95,7 +101,7 @@
   </section>
 
   <!-- ========== FOOTER ========== -->
-  <footer id="contato" class="footer">
+  <footer id="contato" class="footer fade-in">
     <div class="container footer__content">
       <p>© 2025 Atena - Todos os direitos reservados.</p>
       <form class="newsletter">
@@ -108,6 +114,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
-
