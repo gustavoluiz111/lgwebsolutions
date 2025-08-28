@@ -4,162 +4,107 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Atena - Plataforma de Estudos</title>
-
-  <!-- Fonte variável para TextPressure -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,wdth,ital@8..144,100..1000,50..200,0..1&display=swap" rel="stylesheet">
-
-  <!-- CSS Universal -->
-  <link rel="stylesheet" href="style.css">
-  
-  <style>
-    /* Hero */
-    .hero {
-      min-height: 80vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: #1B1B1B;
-      color: #FFFFFF;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    .hero p {
-      margin-top: 1rem;
-      font-size: 1.2rem;
-    }
-
-    .btn-primary {
-      display: inline-block;
-      background-color: #20A39E;
-      color: #FFFFFF;
-      padding: 0.8rem 2rem;
-      border-radius: 0.5rem;
-      margin-top: 1.5rem;
-      text-decoration: none;
-      transition: background 0.3s ease;
-    }
-
-    .btn-primary:hover {
-      background-color: #1b8d88;
-    }
-
-    /* TextPressure */
-    .text-pressure {
-      font-family: 'Roboto Flex', sans-serif;
-      font-size: 2.5rem;
-      text-transform: uppercase;
-      display: inline-block;
-    }
-
-    /* Features */
-    .features {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      padding: 4rem 2rem;
-      background-color: #F5F5F5;
-      color: #1B1B1B;
-    }
-
-    .card {
-      background: #FFFFFF;
-      padding: 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    /* Footer */
-    .footer {
-      background: #1B1B1B;
-      color: #FFFFFF;
-      text-align: center;
-      padding: 2rem;
-    }
-
-    /* Fade-in */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-
-    .fade-in.appear {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Navbar */
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: #1B1B1B;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      z-index: 1000;
-    }
-
-    .navbar img {
-      height: 40px;
-    }
-
-    .navbar a {
-      color: #FFFFFF;
-      text-decoration: none;
-      margin-left: 1rem;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- Navbar -->
-  <header class="navbar">
-    <img src="https://raw.githubusercontent.com/gustavoluiz111/lgwebsolutions/main/logoatena.png" alt="Logo Atena">
-    <nav>
-      <a href="#">Entrar</a>
-    </nav>
+  <!-- ========== HEADER ========== -->
+  <header class="nav">
+    <div class="container nav__content">
+      <a href="#" class="logo">
+        <img src="assets/logoatena.png" alt="Logo Atena">
+      </a>
+      <nav class="menu">
+        <a href="#home">Início</a>
+        <a href="#cursos">Cursos</a>
+        <a href="#como-funciona">Como Funciona</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a href="#contato">Contato</a>
+      </nav>
+      <button id="theme-toggle" class="btn--ghost">☀️ / 🌙</button>
+    </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero fade-in">
-    <h1 class="text-pressure">Prepare-se para o sucesso acadêmico</h1>
-    <p>Turmas, simulados, biblioteca e fórum — tudo em um só lugar.</p>
-    <a href="#" class="btn-primary">Começar agora</a>
-  </section>
-
-  <!-- Features -->
-  <section class="features fade-in">
-    <div class="card">
-      <h2>📚 Biblioteca</h2>
-      <p>Fichas, simulados e provas antigas organizadas para você.</p>
-    </div>
-    <div class="card">
-      <h2>👥 Fórum</h2>
-      <p>Tire dúvidas, discuta e aprenda junto com a turma.</p>
-    </div>
-    <div class="card">
-      <h2>📊 Painel</h2>
-      <p>Acompanhe seu progresso, estatísticas e ranking.</p>
+  <!-- ========== HERO / HOME ========== -->
+  <section id="home" class="hero">
+    <div class="container hero__content">
+      <h1>Aprenda com a <span>Atena</span></h1>
+      <p>Sua plataforma de estudos digital para alcançar novos níveis de conhecimento.</p>
+      <div class="hero__btns">
+        <a href="#cursos" class="btn">Explorar Cursos</a>
+        <a href="#como-funciona" class="btn--ghost">Saiba Mais</a>
+      </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer fade-in">
-    <p>&copy; 2025 Atena. Todos os direitos reservados.</p>
+  <!-- ========== CURSOS POPULARES ========== -->
+  <section id="cursos" class="section">
+    <div class="container">
+      <h2>Cursos Populares</h2>
+      <div class="grid cards">
+        <div class="card">
+          <h3>Matemática Básica</h3>
+          <p>Construa uma base sólida em matemática de forma simples e prática.</p>
+          <a href="#" class="btn--ghost">Ver mais</a>
+        </div>
+        <div class="card">
+          <h3>Ciências Humanas</h3>
+          <p>Entenda a sociedade, cultura e história através de aulas interativas.</p>
+          <a href="#" class="btn--ghost">Ver mais</a>
+        </div>
+        <div class="card">
+          <h3>Tecnologia & Programação</h3>
+          <p>Aprenda lógica, programação e ferramentas digitais para o futuro.</p>
+          <a href="#" class="btn--ghost">Ver mais</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== COMO FUNCIONA ========== -->
+  <section id="como-funciona" class="section alt">
+    <div class="container">
+      <h2>Como Funciona</h2>
+      <div class="grid steps">
+        <div class="step">📋 <p>Cadastre-se</p></div>
+        <div class="step">📚 <p>Escolha um curso</p></div>
+        <div class="step">💻 <p>Estude online</p></div>
+        <div class="step">🏆 <p>Receba certificado</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== DEPOIMENTOS ========== -->
+  <section id="depoimentos" class="section">
+    <div class="container">
+      <h2>O que nossos alunos dizem</h2>
+      <div class="grid testimonials">
+        <div class="card">
+          <p>"A Atena mudou a forma como aprendo, é simples e prática!"</p>
+          <h4>Maria Silva</h4>
+        </div>
+        <div class="card">
+          <p>"Os cursos são incríveis e já me ajudaram na escola."</p>
+          <h4>João Pereira</h4>
+        </div>
+        <div class="card">
+          <p>"Aprendi programação e já estou criando meus projetos."</p>
+          <h4>Ana Costa</h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer id="contato" class="footer">
+    <div class="container footer__content">
+      <p>© 2025 Atena - Todos os direitos reservados.</p>
+      <form class="newsletter">
+        <input type="email" placeholder="Seu e-mail">
+        <button type="submit" class="btn">Assinar</button>
+      </form>
+    </div>
   </footer>
 
-  <!-- JS Universal -->
-  <script src="main.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
-
