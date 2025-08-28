@@ -1,28 +1,15 @@
 // ========== THEME SWITCHER ==========
 const themeToggle = document.querySelector("#theme-toggle");
-const sun = document.querySelector(".sun");
-const moon = document.querySelector(".moon");
-
 if (localStorage.getItem("theme") === "light") {
   document.body.classList.add("light-theme");
-  sun.style.opacity = "1";
-  moon.style.opacity = "0.3";
-} else {
-  sun.style.opacity = "0.3";
-  moon.style.opacity = "1";
 }
 
 themeToggle.addEventListener("click", () => {
   document.body.classList.toggle("light-theme");
-
   if (document.body.classList.contains("light-theme")) {
     localStorage.setItem("theme", "light");
-    sun.style.opacity = "1";
-    moon.style.opacity = "0.3";
   } else {
     localStorage.setItem("theme", "dark");
-    sun.style.opacity = "0.3";
-    moon.style.opacity = "1";
   }
 });
 
