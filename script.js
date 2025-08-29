@@ -1,45 +1,25 @@
-// ========== THEME SWITCHER ==========
-const themeToggle = document.querySelector("#theme-toggle");
-if (localStorage.getItem("theme") === "light") {
-  document.body.classList.add("light-theme");
-}
-
-themeToggle.addEventListener("click", () => {
+// BOTÃO TEMA
+const themeToggle = document.getElementById("theme-toggle");
+themeToggle.addEventListener("change", () => {
   document.body.classList.toggle("light-theme");
-  if (document.body.classList.contains("light-theme")) {
-    localStorage.setItem("theme", "light");
-  } else {
-    localStorage.setItem("theme", "dark");
-  }
 });
 
-// ========== NEWSLETTER ==========
-const form = document.querySelector(".newsletter");
-if (form) {
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const email = form.querySelector("input").value;
-    if (email) {
-      alert(`Obrigado por assinar, ${email}! 🚀`);
-      form.reset();
-    }
-  });
-}
-
-// ========== SCROLL FADE-IN ==========
+// SCROLL FADE-IN
 const faders = document.querySelectorAll(".fade-in");
 
 const appearOptions = {
-  threshold: 0.2,
+  threshold: 0.1,
   rootMargin: "0px 0px -50px 0px"
 };
 
-const appearOnScroll = new IntersectionObserver(function(entries, observer){
+const appearOnScroll = new IntersectionObserver(function(
+  entries,
+  appearOnScroll
+) {
   entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add("visible");
-      observer.unobserve(entry.target);
-    }
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add("visible");
+    appearOnScroll.unobserve(entry.target);
   });
 }, appearOptions);
 
