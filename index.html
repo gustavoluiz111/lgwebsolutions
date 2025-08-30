@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Atena - Plataforma de Estudos</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .logo img {
+      max-width: 150px; /* Tamanho da logo para desktop */
+      height: auto; /* Mantém a proporção */
+    }
+
+    @media (max-width: 768px) {
+      .logo img {
+        max-width: 100px; /* Tamanho menor para telas pequenas */
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- ===== NAVBAR ===== -->
@@ -127,4 +139,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
