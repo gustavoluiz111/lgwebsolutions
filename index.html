@@ -6,9 +6,15 @@
   <title>Atena - Plataforma de Estudos</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* Estilos para a logo (mantidos do ajuste anterior) */
+    /* Definindo variáveis CSS para os temas */
+    :root {
+      --bg-light: #fff; /* Cor de fundo do tema claro */
+      --bg-dark: #333; /* Cor de fundo do tema escuro */
+    }
+
+    /* Estilos para a logo (tamanho reduzido) */
     .logo img {
-      max-width: 150px; /* Tamanho da logo para desktop */
+      max-width: 120px; /* Tamanho reduzido para desktop */
       height: auto; /* Mantém a proporção */
     }
 
@@ -18,12 +24,21 @@
       width: 100%; /* Ocupa toda a largura */
       display: flex;
       align-items: center; /* Centraliza verticalmente */
-      background-color: #fff; /* Cor de fundo (ajuste conforme seu design) */
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+      background-color: transparent; /* Navbar transparente */
       position: fixed; /* Fixa a navbar no topo */
       top: 0;
       left: 0;
       z-index: 1000; /* Garante que fique acima de outros elementos */
+      transition: background-color 0.3s ease; /* Suaviza a transição de tema */
+    }
+
+    /* Aplica a cor de fundo com base no tema */
+    body.light-theme .nav {
+      background-color: var(--bg-light); /* Tema claro */
+    }
+
+    body.dark-theme .nav {
+      background-color: var(--bg-dark); /* Tema escuro */
     }
 
     .nav__content {
@@ -39,7 +54,7 @@
     /* Responsividade para telas menores */
     @media (max-width: 768px) {
       .logo img {
-        max-width: 100px; /* Tamanho menor para a logo */
+        max-width: 80px; /* Tamanho menor para a logo */
       }
 
       .nav {
@@ -50,9 +65,20 @@
         padding: 0 10px; /* Menos padding em telas menores */
       }
     }
+
+    /* Ajuste para evitar sobreposição de conteúdo */
+    body {
+      padding-top: 80px; /* Espaço para a navbar fixa */
+    }
+
+    @media (max-width: 768px) {
+      body {
+        padding-top: 60px;
+      }
+    }
   </style>
 </head>
-<body>
+<body class="light-theme"> <!-- Tema padrão: claro -->
   <!-- ===== NAVBAR ===== -->
   <header class="nav fade-in">
     <div class="container nav__content">
@@ -172,4 +198,4 @@
 
   <script src="script.js"></script>
 </body>
-    </html>
+          </html>
