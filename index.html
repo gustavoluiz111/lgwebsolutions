@@ -6,14 +6,48 @@
   <title>Atena - Plataforma de Estudos</title>
   <link rel="stylesheet" href="styles.css">
   <style>
+    /* Estilos para a logo (mantidos do ajuste anterior) */
     .logo img {
       max-width: 150px; /* Tamanho da logo para desktop */
       height: auto; /* Mantém a proporção */
     }
 
+    /* Estilos para a navbar */
+    .nav {
+      height: 80px; /* Altura da navbar */
+      width: 100%; /* Ocupa toda a largura */
+      display: flex;
+      align-items: center; /* Centraliza verticalmente */
+      background-color: #fff; /* Cor de fundo (ajuste conforme seu design) */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra leve */
+      position: fixed; /* Fixa a navbar no topo */
+      top: 0;
+      left: 0;
+      z-index: 1000; /* Garante que fique acima de outros elementos */
+    }
+
+    .nav__content {
+      display: flex;
+      justify-content: space-between; /* Espaça logo, tema e login */
+      align-items: center;
+      max-width: 1200px; /* Largura máxima do conteúdo */
+      width: 100%;
+      padding: 0 20px; /* Espaçamento interno */
+      margin: 0 auto; /* Centraliza */
+    }
+
+    /* Responsividade para telas menores */
     @media (max-width: 768px) {
       .logo img {
-        max-width: 100px; /* Tamanho menor para telas pequenas */
+        max-width: 100px; /* Tamanho menor para a logo */
+      }
+
+      .nav {
+        height: 60px; /* Altura menor para telas pequenas */
+      }
+
+      .nav__content {
+        padding: 0 10px; /* Menos padding em telas menores */
       }
     }
   </style>
@@ -138,4 +172,4 @@
 
   <script src="script.js"></script>
 </body>
-</html>
+    </html>
