@@ -18,6 +18,7 @@
       --bg-color: #fff; /* Cor de fundo padrão */
       --bg-color-alt: #666; /* Cor de fundo alternativa */
       --main-color: #323232; /* Cor principal */
+      --button-gooey-color: #06c8d9; /* Cor do botão gooey */
     }
 
     /* Estilos para a logo */
@@ -51,7 +52,7 @@
 
     .nav__content {
       display: flex;
-      justify-content: space-between; /* Espaça logo, tema e login */
+      justify-content: space-between; /* Espaça logo, tema e botão */
       align-items: center;
       max-width: 1200px; /* Largura máxima do conteúdo */
       width: 100%;
@@ -262,6 +263,83 @@
       cursor: pointer;
     }
 
+    /* Estilos do botão gooey para o início */
+    .c-button {
+      color: var(--text-light);
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      padding: 0.9em 1.6em;
+      cursor: pointer;
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      z-index: 1;
+    }
+
+    .c-button--gooey {
+      color: var(--button-gooey-color);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: 4px solid var(--button-gooey-color);
+      border-radius: 0;
+      position: relative;
+      transition: all 700ms ease;
+    }
+
+    body.dark-theme .c-button--gooey {
+      color: var(--text-dark);
+      border-color: var(--text-dark);
+    }
+
+    .c-button--gooey .c-button__blobs {
+      height: 100%;
+      filter: url(#goo);
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: -3px;
+      right: -1px;
+      z-index: -1;
+    }
+
+    .c-button--gooey .c-button__blobs div {
+      background-color: var(--button-gooey-color);
+      width: 34%;
+      height: 100%;
+      border-radius: 100%;
+      position: absolute;
+      transform: scale(1.4) translateY(125%) translateZ(0);
+      transition: all 700ms ease;
+    }
+
+    body.dark-theme .c-button--gooey .c-button__blobs div {
+      background-color: var(--text-dark);
+    }
+
+    .c-button--gooey .c-button__blobs div:nth-child(1) {
+      left: -5%;
+    }
+
+    .c-button--gooey .c-button__blobs div:nth-child(2) {
+      left: 30%;
+      transition-delay: 60ms;
+    }
+
+    .c-button--gooey .c-button__blobs div:nth-child(3) {
+      left: 66%;
+      transition-delay: 25ms;
+    }
+
+    .c-button--gooey:hover {
+      color: var(--text-dark);
+    }
+
+    .c-button--gooey:hover .c-button__blobs div {
+      transform: scale(1.4) translateY(0) translateZ(0);
+    }
+
     /* Responsividade para telas menores */
     @media (max-width: 768px) {
       .logo img {
@@ -290,7 +368,7 @@
         <img src="logoatena.png" alt="Logo Atena">
       </a>
  
-      <!-- Botão Tema -->
+      <!-- Botão Tema (igual ao index.html) -->
       <label class="switch">
         <span class="sun">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -309,6 +387,16 @@
         <span class="slider"></span>
       </label>
 
+      <!-- Botão para a página inicial (gooey) -->
+      <a href="index.html" class="c-button c-button--gooey">Início
+        <div class="c-button__blobs">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </a>
+    </div>
+  </header>
 
   <!-- ===== FORMULÁRIO DE LOGIN E CADASTRO ===== -->
   <section class="login-section fade-in">
@@ -316,25 +404,25 @@
       <div class="wrapper">
         <div class="card-switch">
           <label class="switch">
-            <input type="checkbox" class="toggle">
+            <input type="checkbox" class="toggle" id="flip-toggle">
             <span class="slider"></span>
             <span class="card-side"></span>
             <div class="flip-card__inner">
               <div class="flip-card__front">
                 <div class="title">Entrar</div>
-                <form class="flip-card__form" action="">
-                  <input class="flip-card__input" name="email" placeholder="E-mail" type="email">
-                  <input class="flip-card__input" name="password" placeholder="Senha" type="password">
-                  <button class="flip-card__btn">Entrar!</button>
+                <form class="flip-card__form" id="login-form" action="">
+                  <input class="flip-card__input login-email" name="email" placeholder="E-mail" type="email" required>
+                  <input class="flip-card__input login-password" name="password" placeholder="Senha" type="password" required>
+                  <button class="flip-card__btn" type="submit">Entrar!</button>
                 </form>
               </div>
               <div class="flip-card__back">
                 <div class="title">Cadastrar</div>
-                <form class="flip-card__form" action="">
-                  <input class="flip-card__input" placeholder="Chave de Acesso" type="text">
-                  <input class="flip-card__input" name="email" placeholder="E-mail" type="email">
-                  <input class="flip-card__input" name="password" placeholder="Senha" type="password">
-                  <button class="flip-card__btn">Cadastrar!</button>
+                <form class="flip-card__form" id="signup-form" action="">
+                  <input class="flip-card__input signup-access-key" name="access-key" placeholder="Chave de Acesso" type="text" required>
+                  <input class="flip-card__input signup-email" name="email" placeholder="E-mail" type="email" required>
+                  <input class="flip-card__input signup-password" name="password" placeholder="Senha" type="password" required>
+                  <button class="flip-card__btn" type="submit">Cadastrar!</button>
                 </form>
               </div>
             </div>
@@ -351,6 +439,17 @@
     </div>
   </footer>
 
+  <!-- SVG para o efeito gooey do botão -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: block; height: 0; width: 0;">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"></feColorMatrix>
+        <feBlend in="SourceGraphic" in2="goo"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+
   <script src="script.js"></script>
 </body>
-    </html>
+  </html>
