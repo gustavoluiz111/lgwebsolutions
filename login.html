@@ -3,157 +3,246 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atena - Login</title>
+  <title>Atena - Login / Cadastro</title>
   <style>
-    /* ==== VARIÁVEIS ==== */
     :root {
       --brand: #4b70e2;
       --bg-dark: #0e0e0e;
       --bg-light: #f9f9f9;
-      --text-dark: #fff;
-      --text-light: #111;
-      --gray-platform: #b0b0b0;
+      --text-light: #fff;
+      --text-dark: #111;
+      --input-bg: #1a1a1a;
+      --input-border: #444;
+      --card-hover-shadow: rgba(75, 112, 226, 0.3);
     }
 
-    /* ==== RESET ==== */
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-    body { background: var(--bg-dark); color: var(--text-dark); line-height: 1.6; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
 
-    /* ==== CONTAINER PRINCIPAL ==== */
-    .login-container { width: 350px; background: #1f1f1f; padding: 30px; border-radius: 15px; box-shadow: 0 0 20px rgba(75,112,226,0.3); text-align: center; }
+    body {
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      transition: background 0.3s, color 0.3s;
+    }
+    body.light-theme { background-color: var(--bg-light); color: var(--text-dark); }
 
-    /* ==== LOGO ==== */
-    .logo img { width: 80px; height: auto; margin-bottom: 20px; }
+    .auth-card {
+      background-color: var(--bg-dark);
+      padding: 40px 30px;
+      border-radius: 15px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 10px 30px var(--card-hover-shadow);
+      transition: background 0.3s;
+    }
+    body.light-theme .auth-card { background-color: var(--bg-light); }
 
-    /* ==== TÍTULOS ==== */
-    .login-container h2 { margin-bottom: 20px; color: var(--brand); }
+    .logo { text-align:center; margin-bottom:25px; }
+    .logo img { width:70px; height:auto; }
 
-    /* ==== FORMULÁRIOS ==== */
-    .form-card { display: none; flex-direction: column; gap: 15px; }
-    .form-card.active { display: flex; }
+    .tabs { display:flex; justify-content:center; margin-bottom:20px; gap:20px; }
+    .tab-btn {
+      cursor:pointer;
+      padding:10px 20px;
+      border:none;
+      background:transparent;
+      font-weight:bold;
+      color: var(--text-light);
+      transition: color 0.3s, border-bottom 0.3s;
+    }
+    .tab-btn.active { color: var(--brand); border-bottom:2px solid var(--brand); }
+    body.light-theme .tab-btn { color: var(--text-dark); }
 
-    input { padding: 10px; border-radius: 8px; border: none; outline: none; font-size: 1rem; }
+    form { display:flex; flex-direction:column; }
+    .input-group { position:relative; margin-bottom:15px; }
+    .input-group input {
+      width:100%;
+      padding:12px 12px 12px 40px;
+      border-radius:8px;
+      border:1px solid var(--input-border);
+      background-color: var(--input-bg);
+      color: var(--text-light);
+      font-size:1rem;
+      transition: border 0.3s, background 0.3s, color 0.3s;
+    }
+    body.light-theme .input-group input {
+      background-color:#fff;
+      color: var(--text-dark);
+      border:1px solid #ccc;
+    }
+    .input-group .icon {
+      position:absolute;
+      top:50%;
+      left:12px;
+      transform:translateY(-50%);
+      font-size:18px;
+      color:#888;
+    }
 
-    input:focus { box-shadow: 0 0 5px var(--brand); }
+    button {
+      padding:12px;
+      border:none;
+      border-radius:8px;
+      background-color: var(--brand);
+      color:#fff;
+      font-weight:bold;
+      cursor:pointer;
+      margin-top:10px;
+      transition: opacity 0.3s;
+    }
+    button:hover { opacity:0.9; }
 
-    /* ==== BOTÕES ==== */
-    .btn { padding: 10px 20px; border: none; border-radius: 8px; background: var(--brand); color: #fff; font-weight: bold; cursor: pointer; transition: 0.3s; }
-    .btn:hover { opacity: 0.9; }
+    .error-message {
+      color:#ff4d4d;
+      font-size:0.9rem;
+      margin-bottom:10px;
+      display:none;
+    }
 
-    .btn-ghost { background: transparent; border: 2px solid #fff; color: #fff; }
-    .btn-ghost:hover { border-color: var(--brand); color: var(--brand); }
+    .theme-toggle { display:flex; justify-content:center; margin-bottom:15px; cursor:pointer; }
+    .theme-toggle button { padding:5px 12px; font-size:0.9rem; border-radius:8px; border:1px solid #888; background:transparent; color:inherit; }
 
-    /* ==== LINKS ==== */
-    .switch-link { color: var(--brand); cursor: pointer; text-decoration: underline; font-size: 0.9rem; }
+    .home-btn { text-align:center; margin-top:15px; }
+    .home-btn a { text-decoration:none; color: var(--text-light); font-weight:bold; transition:color 0.3s; }
+    .home-btn a:hover { color: var(--brand); }
+    body.light-theme .home-btn a { color: var(--text-dark); }
 
-    /* ==== INÍCIO ==== */
-    .inicio-btn { margin-top: 15px; display: inline-block; text-decoration: none; color: #fff; font-weight: bold; }
+    @media(max-width:480px){ .auth-card { padding:30px 20px; } }
   </style>
 </head>
-<body>
+<body class="dark-theme">
 
-  <div class="login-container">
+<div class="auth-card">
+  <div class="logo">
     <img src="logoatena.png" alt="Logo Atena">
-    <h2>Atena</h2>
-
-    <!-- FORMULÁRIO DE CADASTRO -->
-    <div id="cadastroCard" class="form-card active">
-      <input type="text" id="nomeCadastro" placeholder="Nome completo" required>
-      <input type="email" id="emailCadastro" placeholder="Email" required>
-      <input type="password" id="senhaCadastro" placeholder="Senha" required>
-      <input type="text" id="chaveCadastro" placeholder="Chave de acesso" required>
-      <button class="btn" onclick="cadastrarUsuario()">Cadastre-se</button>
-      <p>Já possui conta? <span class="switch-link" onclick="mostrarLogin()">Já sou aluno</span></p>
-    </div>
-
-    <!-- FORMULÁRIO DE LOGIN -->
-    <div id="loginCard" class="form-card">
-      <input type="email" id="emailLogin" placeholder="Email" required>
-      <input type="password" id="senhaLogin" placeholder="Senha" required>
-      <button class="btn" onclick="loginUsuario()">Já sou aluno</button>
-      <p>Não possui conta? <span class="switch-link" onclick="mostrarCadastro()">Cadastre-se</span></p>
-    </div>
-
-    <a href="index.html" class="inicio-btn">← Início</a>
   </div>
 
-  <!-- ==== FIREBASE ==== -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <div class="theme-toggle">
+    <button id="theme-btn">Alternar Tema</button>
+  </div>
 
-  <script>
-    // ==== CONFIGURAÇÃO FIREBASE ====
-    const firebaseConfig = {
-      apiKey: "AIzaSyCrQVOUQsWJGKpMO6ceGwshIKVkkuzJKxI",
-      authDomain: "plataforma-estudos-570f3.firebaseapp.com",
-      projectId: "plataforma-estudos-570f3",
-      storageBucket: "plataforma-estudos-570f3.appspot.com",
-      messagingSenderId: "1096880393119",
-      appId: "1:1096880393119:web:EXEMPLO123456"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.database();
+  <div class="tabs">
+    <button class="tab-btn active" id="login-tab">Já sou aluno</button>
+    <button class="tab-btn" id="register-tab">Cadastre-se</button>
+  </div>
 
-    // ==== SWITCH FORMULÁRIO ====
-    function mostrarLogin() {
-      document.getElementById('cadastroCard').classList.remove('active');
-      document.getElementById('loginCard').classList.add('active');
-    }
+  <div class="error-message" id="error-msg">Por favor, preencha todos os campos.</div>
 
-    function mostrarCadastro() {
-      document.getElementById('loginCard').classList.remove('active');
-      document.getElementById('cadastroCard').classList.add('active');
-    }
+  <form id="login-form">
+    <div class="input-group">
+      <span class="icon">👤</span>
+      <input type="email" id="login-email" placeholder="Email">
+    </div>
+    <div class="input-group">
+      <span class="icon">🔒</span>
+      <input type="password" id="login-password" placeholder="Senha">
+    </div>
+    <button type="submit">Entrar</button>
+  </form>
 
-    // ==== CADASTRO ====
-    function cadastrarUsuario() {
-      const nome = document.getElementById('nomeCadastro').value;
-      const email = document.getElementById('emailCadastro').value;
-      const senha = document.getElementById('senhaCadastro').value;
-      const chave = document.getElementById('chaveCadastro').value;
+  <form id="register-form" style="display:none;">
+    <div class="input-group">
+      <span class="icon">👤</span>
+      <input type="text" id="register-username" placeholder="Nome completo">
+    </div>
+    <div class="input-group">
+      <span class="icon">🔒</span>
+      <input type="email" id="register-email" placeholder="Email">
+    </div>
+    <div class="input-group">
+      <span class="icon">🔑</span>
+      <input type="text" id="register-key" placeholder="Chave de acesso">
+    </div>
+    <div class="input-group">
+      <span class="icon">🔒</span>
+      <input type="password" id="register-password" placeholder="Senha">
+    </div>
+    <button type="submit">Cadastrar</button>
+  </form>
 
-      if (!nome || !email || !senha || !chave) {
-        alert("Preencha todos os campos!");
-        return;
+  <div class="home-btn">
+    <a href="index.html">Início</a>
+  </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+  const loginTab = document.getElementById('login-tab');
+  const registerTab = document.getElementById('register-tab');
+  const loginForm = document.getElementById('login-form');
+  const registerForm = document.getElementById('register-form');
+  const errorMsg = document.getElementById('error-msg');
+  const themeBtn = document.getElementById('theme-btn');
+
+  loginTab.addEventListener('click', () => {
+    loginTab.classList.add('active'); registerTab.classList.remove('active');
+    loginForm.style.display='flex'; registerForm.style.display='none'; errorMsg.style.display='none';
+  });
+
+  registerTab.addEventListener('click', () => {
+    registerTab.classList.add('active'); loginTab.classList.remove('active');
+    registerForm.style.display='flex'; loginForm.style.display='none'; errorMsg.style.display='none';
+  });
+
+  themeBtn.addEventListener('click', () => { document.body.classList.toggle('light-theme'); document.body.classList.toggle('dark-theme'); });
+
+  // ==== FIREBASE CONFIG ====
+  const firebaseConfig = {
+    apiKey: "AIzaSyCrQVOUQsWJGKpMO6ceGwshIKVkkuzJKxI",
+    authDomain: "plataforma-estudos-570f3.firebaseapp.com",
+    projectId: "plataforma-estudos-570f3",
+    storageBucket: "plataforma-estudos-570f3.appspot.com",
+    messagingSenderId: "1096880393119",
+    appId: "1:1096880393119:web:EXEMPLO123456"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.database();
+
+  // LOGIN
+  loginForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('login-email').value.trim();
+    const senha = document.getElementById('login-password').value.trim();
+    if(!email || !senha){ errorMsg.textContent='Preencha todos os campos.'; errorMsg.style.display='block'; return; }
+
+    auth.signInWithEmailAndPassword(email, senha)
+      .then(()=>{ window.location.href='painel.html'; })
+      .catch(err=>{ errorMsg.textContent=err.message; errorMsg.style.display='block'; });
+  });
+
+  // CADASTRO
+  registerForm.addEventListener('submit', e=>{
+    e.preventDefault();
+    const nome = document.getElementById('register-username').value.trim();
+    const email = document.getElementById('register-email').value.trim();
+    const senha = document.getElementById('register-password').value.trim();
+    const chave = document.getElementById('register-key').value.trim();
+
+    if(!nome || !email || !senha || !chave){ errorMsg.textContent='Preencha todos os campos.'; errorMsg.style.display='block'; return; }
+
+    // Verifica chave no Firebase
+    db.ref('chaves/'+chave).get().then(snapshot=>{
+      if(!snapshot.exists() || snapshot.val().usada){
+        errorMsg.textContent='Chave inválida ou já utilizada!';
+        errorMsg.style.display='block';
+      } else {
+        auth.createUserWithEmailAndPassword(email, senha)
+          .then(userCredential=>{
+            db.ref('chaves/'+chave).update({usada:true, usuario:userCredential.user.uid});
+            alert('Cadastro realizado! Faça login.');
+            loginTab.click();
+          })
+          .catch(err=>{ errorMsg.textContent=err.message; errorMsg.style.display='block'; });
       }
-
-      // Verifica chave no Firebase
-      db.ref('chaves/' + chave).get().then(snapshot => {
-        if (!snapshot.exists() || snapshot.val().usada) {
-          alert("Chave inválida ou já utilizada!");
-        } else {
-          // Cria usuário no Firebase Auth
-          auth.createUserWithEmailAndPassword(email, senha)
-            .then(userCredential => {
-              // Marca chave como usada
-              db.ref('chaves/' + chave).update({ usada: true, usuario: userCredential.user.uid });
-              alert("Cadastro realizado! Faça login agora.");
-              mostrarLogin();
-            })
-            .catch(error => alert(error.message));
-        }
-      });
-    }
-
-    // ==== LOGIN ====
-    function loginUsuario() {
-      const email = document.getElementById('emailLogin').value;
-      const senha = document.getElementById('senhaLogin').value;
-
-      if (!email || !senha) {
-        alert("Preencha todos os campos!");
-        return;
-      }
-
-      auth.signInWithEmailAndPassword(email, senha)
-        .then(() => {
-          // Redireciona para dashboard (painel do aluno)
-          window.location.href = "painel.html";
-        })
-        .catch(error => alert(error.message));
-    }
-  </script>
+    });
+  });
+</script>
 </body>
 </html>
