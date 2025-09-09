@@ -1,502 +1,424 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atena - Entrar e Cadastrar</title>
-  <link rel="stylesheet" href="styles.css">
-  <style>
-    /* Definindo variáveis CSS para os temas */
-    :root {
-      --bg-light: #fff; /* Cor de fundo do tema claro */
-      --bg-dark: #333; /* Cor de fundo do tema escuro */
-      --text-light: #333; /* Cor do texto no tema claro */
-      --text-dark: #fff; /* Cor do texto no tema escuro */
-      --input-focus: #2d8cf0; /* Cor de foco dos inputs */
-      --font-color: #323232; /* Cor da fonte padrão */
-      --font-color-sub: #666; /* Cor da fonte secundária */
-      --bg-color: #fff; /* Cor de fundo padrão */
-      --bg-color-alt: #666; /* Cor de fundo alternativa */
-      --main-color: #323232; /* Cor principal */
-      --button-gooey-color: #06c8d9; /* Cor do botão gooey */
-    }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atena - Entrar e Cadastrar</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Estilos para o tema claro e escuro, alinhados com o index.html */
+    :root {
+      --bg-light: #fff;
+      --bg-dark: #333;
+      --text-light: #333;
+      --text-dark: #fff;
+      --main-color: #323232;
+      --link-color: #06c8d9; /* Cor do efeito gooey e link principal */
+      --primary-btn: #323232; /* Cor para botões primários */
+      --ghost-btn: transparent;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+    }
 
-    /* Estilos para a logo */
-    .logo img {
-      max-width: 120px; /* Tamanho reduzido para desktop */
-      height: auto; /* Mantém a proporção */
-    }
+    body.light-theme {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
 
-    /* Estilos para a navbar */
-    .nav {
-      height: 80px; /* Altura da navbar */
-      width: 100%; /* Ocupa toda a largura */
-      display: flex;
-      align-items: center; /* Centraliza verticalmente */
-      background-color: transparent; /* Navbar transparente */
-      position: fixed; /* Fixa a navbar no topo */
-      top: 0;
-      left: 0;
-      z-index: 1000; /* Garante que fique acima de outros elementos */
-      transition: background-color 0.3s ease; /* Suaviza a transição de tema */
-    }
+    body.dark-theme {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
 
-    /* Aplica a cor de fundo com base no tema */
-    body.light-theme .nav {
-      background-color: var(--bg-light); /* Tema claro */
-    }
+    /* Estilos da navbar, alinhados com o index.html */
+    .nav {
+      height: 80px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      background-color: transparent;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
 
-    body.dark-theme .nav {
-      background-color: var(--bg-dark); /* Tema escuro */
-    }
+    .nav__content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
+      padding: 0 20px;
+      margin: 0 auto;
+    }
 
-    .nav__content {
-      display: flex;
-      justify-content: space-between; /* Espaça logo, tema e botão */
-      align-items: center;
-      max-width: 1200px; /* Largura máxima do conteúdo */
-      width: 100%;
-      padding: 0 20px; /* Espaçamento interno */
-      margin: 0 auto; /* Centraliza */
-    }
+    .logo img {
+      max-width: 90px;
+      height: auto;
+    }
 
-    /* Estilo do botão de tema simplificado */
-    .switch-theme {
-      position: relative;
-      display: inline-block;
-      width: 50px;
-      height: 24px;
-    }
+    /* Estilos para o botão de tema, alinhados com o index.html */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc; /* Cor padrão do switch */
+      transition: .4s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: var(--link-color); /* Usa a cor principal para o switch ativo */
+    }
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
 
-    .switch-theme input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+    /* Botão Início com efeito gooey */
+    .c-button--gooey {
+      color: var(--link-color); /* Cor do texto do botão */
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      border: 2px solid var(--link-color); /* Borda mais fina, combinando com o estilo clean */
+      border-radius: 5px; /* Bordas arredondadas para combinar com o site */
+      position: relative;
+      transition: all 700ms ease;
+      background-color: transparent; /* Fundo transparente */
+      padding: 10px 20px; /* Ajuste de padding */
+      font-size: 15px; /* Tamanho da fonte */
+    }
 
-    .switch-theme .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: var(--bg-color);
-      border: 2px solid var(--main-color);
-      border-radius: 24px;
-      transition: 0.3s;
-    }
+    body.dark-theme .c-button--gooey {
+      color: var(--text-dark);
+      border-color: var(--text-dark);
+    }
 
-    .switch-theme .slider:before {
-      position: absolute;
-      content: "";
-      height: 16px;
-      width: 16px;
-      left: 4px;
-      bottom: 4px;
-      background-color: var(--main-color);
-      border-radius: 50%;
-      transition: 0.3s;
-    }
+    .c-button--gooey .c-button__blobs {
+      height: 100%;
+      filter: url(#goo);
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: -3px;
+      right: -1px;
+      z-index: -1;
+    }
 
-    .switch-theme input:checked + .slider {
-      background-color: var(--input-focus);
-    }
+    .c-button--gooey .c-button__blobs div {
+      background-color: var(--link-color); /* Cor do efeito gooey */
+      width: 34%;
+      height: 100%;
+      border-radius: 100%;
+      position: absolute;
+      transform: scale(1.4) translateY(125%) translateZ(0);
+      transition: all 700ms ease;
+    }
 
-    .switch-theme input:checked + .slider:before {
-      transform: translateX(26px);
-    }
+    body.dark-theme .c-button--gooey .c-button__blobs div {
+      background-color: var(--text-dark); /* Adapta cor do blob ao tema escuro */
+    }
 
-    /* Estilos do formulário de login/cadastro */
-    .login-section {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: calc(100vh - 80px); /* Ajusta para a altura da navbar */
-      padding: 20px;
-      z-index: 1; /* Garante que o formulário fique acima de outros elementos */
-    }
+    .c-button--gooey .c-button__blobs div:nth-child(1) { left: -5%; }
+    .c-button--gooey .c-button__blobs div:nth-child(2) { left: 30%; transition-delay: 60ms; }
+    .c-button--gooey .c-button__blobs div:nth-child(3) { left: 66%; transition-delay: 25ms; }
 
-    .wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      z-index: 2; /* Garante visibilidade do formulário */
-    }
+    .c-button--gooey:hover {
+      color: var(--text-dark); /* Muda cor do texto ao hover */
+    }
 
-    .switch {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 30px;
-      width: 50px;
-      height: 20px;
-      margin-top: 20px; /* Espaço para o toggle não sobrepor o formulário */
-    }
+    .c-button--gooey:hover .c-button__blobs div {
+      transform: scale(1.4) translateY(0) translateZ(0);
+    }
 
-    .card-side::before {
-      position: absolute;
-      content: 'Entrar';
-      left: -70px;
-      top: 0;
-      width: 100px;
-      text-decoration: underline;
-      color: var(--font-color);
-      font-weight: 600;
-    }
+    /* Estilos do formulário de login/cadastro simplificados */
+    .login-section {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-top: 80px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-    .card-side::after {
-      position: absolute;
-      content: 'Cadastrar';
-      left: 70px;
-      top: 0;
-      width: 100px;
-      text-decoration: none;
-      color: var(--font-color);
-      font-weight: 600;
-    }
+    .card-switch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      padding: 30px; /* Mais padding para um visual mais espaçado */
+      background-color: var(--bg-light);
+      border-radius: 10px;
+      box-shadow: var(--shadow); /* Sombra suave */
+      max-width: 400px;
+      width: 100%;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+    body.dark-theme .card-switch {
+      background-color: #444; /* Um tom de cinza mais suave para o fundo escuro */
+    }
 
-    .toggle {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
+    /* Estilos para o flip-card, agora com visual mais limpo */
+    .flip-card__inner {
+      width: 100%; /* Ocupa a largura do card-switch */
+      height: 320px; /* Altura um pouco menor */
+      perspective: 1000px;
+      z-index: 3;
+    }
 
-    .slider {
-      box-sizing: border-box;
-      border-radius: 5px;
-      border: 2px solid var(--main-color);
-      box-shadow: 4px 4px var(--main-color);
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: var(--bg-color);
-      transition: 0.3s;
-    }
+    .flip-card__front, .flip-card__back {
+      background: transparent; /* Fundo transparente para o flip-card */
+      border: none;
+      box-shadow: none;
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
 
-    .slider:before {
-      box-sizing: border-box;
-      position: absolute;
-      content: "";
-      height: 20px;
-      width: 20px;
-      border: 2px solid var(--main-color);
-      border-radius: 5px;
-      left: -2px;
-      bottom: 2px;
-      background-color: var(--bg-color);
-      box-shadow: 0 3px 0 var(--main-color);
-      transition: 0.3s;
-    }
+    .flip-card__front { transform: rotateY(0deg); }
+    .flip-card__back { transform: rotateY(180deg); }
 
-    .toggle:checked + .slider {
-      background-color: var(--input-focus);
-    }
+    /* Título do formulário, com cor que se adapta ao tema */
+    .title {
+      margin: 15px 0 25px 0; /* Ajuste de margem */
+      font-size: 28px; /* Um pouco maior */
+      font-weight: 700;
+      color: var(--main-color);
+    }
+    body.dark-theme .title {
+      color: var(--text-dark);
+    }
 
-    .toggle:checked + .slider:before {
-      transform: translateX(30px);
-    }
+    /* Inputs com borda suave e foco */
+    .flip-card__input {
+      width: 100%; /* Ocupa toda a largura do form */
+      height: 45px; /* Altura um pouco maior */
+      border: 1px solid #ccc; /* Borda suave */
+      background-color: var(--bg-light);
+      box-shadow: none;
+      color: var(--text-light);
+      padding: 10px 15px;
+      font-size: 15px;
+      border-radius: 5px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 15px; /* Espaço entre inputs */
+    }
+    body.dark-theme .flip-card__input {
+      border-color: #777;
+      background-color: #444;
+      color: var(--text-dark);
+    }
+    .flip-card__input:focus {
+      border-color: var(--link-color); /* Foco na cor principal */
+      outline: none;
+      box-shadow: 0 0 5px rgba(6, 201, 217, 0.5); /* Sombra suave no foco */
+    }
 
-    .toggle:checked ~ .card-side:before {
-      text-decoration: none;
-    }
+    /* Botão principal do formulário, mais limpo */
+    .flip-card__btn {
+      width: 100%;
+      height: 45px;
+      border: none;
+      background-color: var(--primary-btn); /* Usa a cor primária */
+      color: #fff;
+      box-shadow: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 10px; /* Margem superior */
+    }
+    .flip-card__btn:hover {
+      background-color: #555; /* Tom mais escuro no hover */
+    }
+    body.dark-theme .flip-card__btn {
+      background-color: var(--link-color); /* Usa a cor principal do tema escuro */
+    }
+    body.dark-theme .flip-card__btn:hover {
+      background-color: #04a8b5; /* Tom ligeiramente mais escuro no hover do tema escuro */
+    }
 
-    .toggle:checked ~ .card-side:after {
-      text-decoration: underline;
-    }
+    /* Estilos para o switch do flip card */
+    .card-side {
+      /* Estilos visuais para indicar a troca (ex:underline) */
+      position: absolute;
+      cursor: pointer;
+      z-index: 5; /* Acima do flip-card */
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-light);
+      transition: color 0.3s ease;
+    }
+    body.dark-theme .card-side {
+      color: var(--text-dark);
+    }
+    .card-side::before { content: 'Entrar'; left: 20px; top: -25px; } /* Login */
+    .card-side::after { content: 'Cadastrar'; right: 20px; top: -25px; } /* Cadastro */
 
-    .flip-card__inner {
-      width: 300px;
-      height: 350px;
-      position: relative;
-      background-color: transparent;
-      perspective: 1000px;
-      text-align: center;
-      transition: transform 0.8s;
-      transform-style: preserve-3d;
-      z-index: 3; /* Garante que o formulário esteja visível */
-    }
+    /* Ajustes no toggle para alinhar com o visual */
+    .toggle { opacity: 0; width: 0; height: 0; }
+    .toggle + .slider {
+      box-sizing: border-box;
+      border-radius: 5px;
+      border: 2px solid var(--main-color);
+      box-shadow: none; /* Removendo sombra forte */
+      position: absolute;
+      cursor: pointer;
+      top: 5px; /* Posicionamento no card-switch */
+      left: 50%; /* Centralizado horizontalmente */
+      transform: translateX(-50%); /* Ajuste para centralizar */
+      width: 60px; /* Largura do switch */
+      height: 30px; /* Altura do switch */
+      background-color: var(--bg-light);
+      transition: 0.3s;
+    }
+    body.dark-theme .toggle + .slider {
+      background-color: #555;
+      border: 2px solid #777;
+    }
+    .toggle + .slider:before {
+      box-sizing: border-box;
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      border-radius: 3px; /* Cantos mais retos */
+      left: 3px;
+      bottom: 3px;
+      background-color: var(--main-color);
+      box-shadow: none; /* Removendo sombra */
+      transition: 0.3s;
+    }
+    body.dark-theme .toggle + .slider:before {
+      background-color: var(--text-dark);
+    }
 
-    .toggle:checked ~ .flip-card__inner {
-      transform: rotateY(180deg);
-    }
+    .toggle:checked + .slider {
+      background-color: var(--link-color); /* Cor de foco */
+    }
+    body.dark-theme .toggle:checked + .slider {
+      background-color: var(--link-color);
+    }
 
-    .flip-card__front, .flip-card__back {
-      padding: 20px;
-      position: absolute;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      background: var(--bg-color); /* Usa a cor do tema */
-      border-radius: 5px;
-      border: 2px solid var(--main-color);
-      box-shadow: 4px 4px var(--main-color);
-      z-index: 4; /* Garante visibilidade dos campos */
-    }
+    .toggle:checked + .slider:before {
+      transform: translateX(30px); /* Movimento do switch */
+    }
 
-    body.dark-theme .flip-card__front,
-    body.dark-theme .flip-card__back {
-      background: var(--bg-dark); /* Fundo escuro no tema escuro */
-      color: var(--text-dark); /* Texto claro no tema escuro */
-    }
+    /* Ajusta o card-switch para não sobrepor o switch */
+    .card-switch .flip-card__inner {
+      margin-top: 35px; /* Espaço para o switch */
+    }
 
-    .flip-card__back {
-      transform: rotateY(180deg);
-    }
-
-    .flip-card__form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      width: 100%;
-    }
-
-    .title {
-      margin: 20px 0;
-      font-size: 25px;
-      font-weight: 900;
-      text-align: center;
-      color: var(--main-color);
-    }
-
-    .flip-card__input {
-      width: 250px;
-      height: 40px;
-      border-radius: 5px;
-      border: 2px solid var(--main-color);
-      background-color: var(--bg-color);
-      box-shadow: 4px 4px var(--main-color);
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--font-color);
-      padding: 5px 10px;
-      outline: none;
-      box-sizing: border-box;
-    }
-
-    .flip-card__input::placeholder {
-      color: var(--font-color-sub);
-      opacity: 0.8;
-    }
-
-    .flip-card__input:focus {
-      border: 2px solid var(--input-focus);
-    }
-
-    .flip-card__btn:active {
-      box-shadow: 0px 0px var(--main-color);
-      transform: translate(3px, 3px);
-    }
-
-    .flip-card__btn {
-      margin: 20px 0;
-      width: 120px;
-      height: 40px;
-      border-radius: 5px;
-      border: 2px solid var(--main-color);
-      background-color: var(--bg-color);
-      box-shadow: 4px 4px var(--main-color);
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--font-color);
-      cursor: pointer;
-    }
-
-    /* Estilos do botão gooey para o início */
-    .c-button {
-      color: var(--text-light);
-      font-weight: 700;
-      font-size: 16px;
-      text-decoration: none;
-      padding: 0.9em 1.6em;
-      cursor: pointer;
-      display: inline-block;
-      vertical-align: middle;
-      position: relative;
-      z-index: 1;
-    }
-
-    .c-button--gooey {
-      color: var(--button-gooey-color);
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      border: 4px solid var(--button-gooey-color);
-      border-radius: 0;
-      position: relative;
-      transition: all 700ms ease;
-    }
-
-    body.dark-theme .c-button--gooey {
-      color: var(--text-dark);
-      border-color: var(--text-dark);
-    }
-
-    .c-button--gooey .c-button__blobs {
-      height: 100%;
-      filter: url(#goo);
-      overflow: hidden;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: -3px;
-      right: -1px;
-      z-index: -1;
-    }
-
-    .c-button--gooey .c-button__blobs div {
-      background-color: var(--button-gooey-color);
-      width: 34%;
-      height: 100%;
-      border-radius: 100%;
-      position: absolute;
-      transform: scale(1.4) translateY(125%) translateZ(0);
-      transition: all 700ms ease;
-    }
-
-    body.dark-theme .c-button--gooey .c-button__blobs div {
-      background-color: var(--text-dark);
-    }
-
-    .c-button--gooey .c-button__blobs div:nth-child(1) {
-      left: -5%;
-    }
-
-    .c-button--gooey .c-button__blobs div:nth-child(2) {
-      left: 30%;
-      transition-delay: 60ms;
-    }
-
-    .c-button--gooey .c-button__blobs div:nth-child(3) {
-      left: 66%;
-      transition-delay: 25ms;
-    }
-
-    .c-button--gooey:hover {
-      color: var(--text-dark);
-    }
-
-    .c-button--gooey:hover .c-button__blobs div {
-      transform: scale(1.4) translateY(0) translateZ(0);
-    }
-
-    /* Responsividade para telas menores */
-    @media (max-width: 768px) {
-      .logo img {
-        max-width: 80px; /* Tamanho menor para a logo */
-      }
-
-      .nav {
-        height: 60px; /* Altura menor para telas pequenas */
-      }
-
-      .nav__content {
-        padding: 0 10px; /* Menos padding em telas menores */
-      }
-
-      body {
-        padding-top: 60px; /* Ajuste para navbar menor */
-      }
-
-      .flip-card__inner {
-        width: 280px; /* Reduz a largura em telas menores */
-        height: 320px; /* Reduz a altura em telas menores */
-      }
-
-      .flip-card__input {
-        width: 220px; /* Ajusta os inputs para telas menores */
-      }
-    }
-  </style>
+    /* Responsividade */
+    @media (max-width: 768px) {
+      .nav { height: 60px; }
+      body { padding-top: 60px; }
+      .logo img { max-width: 70px; }
+      .card-switch { padding: 20px; }
+      .flip-card__inner { height: 300px; }
+      .card-side::before, .card-side::after { font-size: 13px; top: -20px; }
+    }
+  </style>
 </head>
 <body class="light-theme">
-  <!-- ===== NAVBAR ===== -->
-  <header class="nav fade-in">
-    <div class="container nav__content">
-      <a href="index.html" class="logo">
-        <img src="logoatena.png" alt="Logo Atena">
-      </a>
- 
-      <!-- Botão Tema Simplificado -->
-      <label class="switch-theme">
-        <input type="checkbox" class="input" id="theme-toggle">
-        <span class="slider"></span>
-      </label>
+    <header class="nav fade-in">
+    <div class="container nav__content">
+      <a href="index.html" class="logo">
+        <img src="logoatena.png" alt="Logo Atena">
+      </a>
 
-      <!-- Botão para a página inicial (gooey) -->
-      <a href="index.html" class="c-button c-button--gooey">Início
-        <div class="c-button__blobs">
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-      </a>
-    </div>
-  </header>
+            <label class="switch">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider round"></span>
+      </label>
 
-  <!-- ===== FORMULÁRIO DE LOGIN E CADASTRO ===== -->
-  <section class="login-section fade-in">
-    <div class="container">
-      <div class="wrapper">
-        <div class="card-switch">
-          <label class="switch">
-            <input type="checkbox" class="toggle" id="flip-toggle">
-            <span class="slider"></span>
-            <span class="card-side"></span>
-            <div class="flip-card__inner">
-              <div class="flip-card__front">
-                <div class="title">Entrar</div>
-                <form class="flip-card__form" id="login-form" action="">
-                  <input class="flip-card__input login-email" name="email" placeholder="E-mail" type="email" required>
-                  <input class="flip-card__input login-password" name="password" placeholder="Senha" type="password" required>
-                  <button class="flip-card__btn" type="submit">Entrar!</button>
-                </form>
-              </div>
-              <div class="flip-card__back">
-                <div class="title">Cadastrar</div>
-                <form class="flip-card__form" id="signup-form" action="">
-                  <input class="flip-card__input signup-access-key" name="access-key" placeholder="Chave de Acesso" type="text" required>
-                  <input class="flip-card__input signup-email" name="email" placeholder="E-mail" type="email" required>
-                  <input class="flip-card__input signup-password" name="password" placeholder="Senha" type="password" required>
-                  <button class="flip-card__btn" type="submit">Cadastrar!</button>
-                </form>
-              </div>
-            </div>
-          </label>
-        </div>   
-      </div>
-    </div>
-  </section>
+            <a href="index.html" class="c-button c-button--gooey">Início
+        <div class="c-button__blobs">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </a>
+    </div>
+  </header>
 
-  <!-- ===== FOOTER ===== -->
-  <footer id="contato" class="footer fade-in">
-    <div class="container footer__content">
-      <p>© 2025 Atena - Todos os direitos reservados.</p>
-    </div>
-  </footer>
+    <section class="login-section fade-in">
+    <div class="container">
+      <div class="card-switch">
+          <label class="switch">
+            <input type="checkbox" class="toggle" id="flip-toggle">
+            <span class="slider"></span>
+            <span class="card-side"></span>
+            <div class="flip-card__inner">
+              <div class="flip-card__front">
+                <div class="title">Entrar</div>
+                <form class="flip-card__form" id="login-form" action="">
+                  <input class="flip-card__input login-email" name="email" placeholder="E-mail" type="email" required>
+                  <input class="flip-card__input login-password" name="password" placeholder="Senha" type="password" required>
+                  <button class="flip-card__btn" type="submit">Entrar!</button>
+                </form>
+              </div>
+              <div class="flip-card__back">
+                <div class="title">Cadastrar</div>
+                <form class="flip-card__form" id="signup-form" action="">
+                  <input class="flip-card__input signup-access-key" name="access-key" placeholder="Chave de Acesso" type="text" required>
+                  <input class="flip-card__input signup-email" name="email" placeholder="E-mail" type="email" required>
+                  <input class="flip-card__input signup-password" name="password" placeholder="Senha" type="password" required>
+                  <button class="flip-card__btn" type="submit">Cadastrar!</button>
+                </form>
+              </div>
+            </div>
+          </label>
+      </div>
+    </div>
+  </section>
 
-  <!-- SVG para o efeito gooey do botão -->
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: block; height: 0; width: 0;">
-    <defs>
-      <filter id="goo">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
-        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"></feColorMatrix>
-        <feBlend in="SourceGraphic" in2="goo"></feBlend>
-      </filter>
-    </defs>
-  </svg>
+    <footer id="contato" class="footer fade-in">
+    <div class="container footer__content">
+      <p>© 2025 Atena - Todos os direitos reservados.</p>
+    </div>
+  </footer>
 
-  <script src="script.js"></script>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: block; height: 0; width: 0;">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"></feGaussianBlur>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo"></feColorMatrix>
+        <feBlend in="SourceGraphic" in2="goo"></feBlend>
+      </filter>
+    </defs>
+  </svg>
+
+  <script src="script.js"></script>
 </body>
 </html>
