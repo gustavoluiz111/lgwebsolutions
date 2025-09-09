@@ -3,270 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atena - Entrar e Cadastrar</title>
+  <title>Login - Atena</title>
   <link rel="stylesheet" href="styles.css">
-  <style>
-    /* ================= VARIÁVEIS ================= */
-    :root {
-      --bg-light: #fff;
-      --bg-dark: #333;
-      --text-light: #333;
-      --text-dark: #fff;
-      --input-focus: #06c8d9;
-      --main-color: #323232;
-      --sub-color: #666;
-      --gooey-color: #06c8d9;
-    }
-
-    /* ================= NAVBAR ================= */
-    .nav {
-      height: 80px;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 1000;
-      transition: background-color 0.3s ease;
-    }
-
-    body.light-theme .nav { background: var(--bg-light); }
-    body.dark-theme .nav { background: var(--bg-dark); }
-
-    .nav__content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      width: 100%;
-      padding: 0 20px;
-      margin: 0 auto;
-    }
-
-    .logo img { max-width: 120px; height: auto; }
-
-    /* ================= SWITCH DE TEMA ================= */
-    .switch-theme {
-      position: relative;
-      display: inline-block;
-      width: 50px;
-      height: 24px;
-    }
-
-    .switch-theme input { opacity: 0; width: 0; height: 0; }
-
-    .switch-theme .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: var(--bg-light);
-      border: 2px solid var(--main-color);
-      border-radius: 24px;
-      transition: 0.3s;
-    }
-
-    .switch-theme .slider:before {
-      position: absolute;
-      content: "";
-      height: 16px;
-      width: 16px;
-      left: 4px;
-      bottom: 4px;
-      background-color: var(--main-color);
-      border-radius: 50%;
-      transition: 0.3s;
-    }
-
-    .switch-theme input:checked + .slider {
-      background-color: var(--input-focus);
-    }
-
-    .switch-theme input:checked + .slider:before {
-      transform: translateX(26px);
-    }
-
-    /* ================= SEÇÃO LOGIN ================= */
-    .login-section {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: calc(100vh - 80px);
-      padding: 20px;
-    }
-
-    .wrapper { display: flex; justify-content: center; align-items: center; }
-
-    /* ================= FLIP CARD ================= */
-    .switch {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 30px;
-    }
-
-    .card-side::before {
-      content: 'Entrar';
-      position: absolute;
-      left: -70px;
-      font-weight: 600;
-      text-decoration: underline;
-      color: var(--main-color);
-    }
-    .card-side::after {
-      content: 'Cadastrar';
-      position: absolute;
-      left: 70px;
-      font-weight: 600;
-      color: var(--main-color);
-    }
-
-    .toggle { opacity: 0; width: 0; height: 0; }
-
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0; left: 0; right: 0; bottom: 0;
-      border: 2px solid var(--main-color);
-      border-radius: 5px;
-      background-color: var(--bg-light);
-      transition: 0.3s;
-    }
-
-    .slider:before {
-      content: "";
-      position: absolute;
-      height: 20px;
-      width: 20px;
-      left: -2px;
-      bottom: 2px;
-      border: 2px solid var(--main-color);
-      border-radius: 5px;
-      background-color: var(--bg-light);
-      transition: 0.3s;
-    }
-
-    .toggle:checked + .slider { background-color: var(--input-focus); }
-    .toggle:checked + .slider:before { transform: translateX(30px); }
-    .toggle:checked ~ .card-side:before { text-decoration: none; }
-    .toggle:checked ~ .card-side:after { text-decoration: underline; }
-
-    .flip-card__inner {
-      width: 300px;
-      height: 350px;
-      perspective: 1000px;
-      transition: transform 0.8s;
-      transform-style: preserve-3d;
-    }
-
-    .toggle:checked ~ .flip-card__inner { transform: rotateY(180deg); }
-
-    .flip-card__front, .flip-card__back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border: 2px solid var(--main-color);
-      border-radius: 5px;
-      background: var(--bg-light);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      backface-visibility: hidden;
-      transition: 0.3s;
-    }
-
-    .flip-card__back { transform: rotateY(180deg); }
-
-    body.dark-theme .flip-card__front,
-    body.dark-theme .flip-card__back {
-      background: var(--bg-dark);
-      color: var(--text-dark);
-    }
-
-    /* ================= FORMULÁRIO ================= */
-    .title {
-      margin: 20px 0;
-      font-size: 25px;
-      font-weight: 900;
-      color: var(--main-color);
-    }
-
-    .flip-card__form { display: flex; flex-direction: column; gap: 20px; }
-
-    .flip-card__input {
-      width: 250px;
-      height: 40px;
-      border: 2px solid var(--main-color);
-      border-radius: 5px;
-      padding: 5px 10px;
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-light);
-    }
-
-    .flip-card__input::placeholder { color: var(--sub-color); }
-
-    .flip-card__input:focus {
-      border-color: var(--input-focus);
-      outline: none;
-    }
-
-    .flip-card__btn {
-      width: 120px;
-      height: 40px;
-      border: 2px solid var(--main-color);
-      border-radius: 5px;
-      background: var(--bg-light);
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    /* ================= BOTÃO GOOEY ================= */
-    .c-button {
-      position: relative;
-      display: inline-block;
-      padding: 0.9em 1.6em;
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .c-button--gooey {
-      color: var(--gooey-color);
-      border: 3px solid var(--gooey-color);
-      letter-spacing: 2px;
-      transition: 0.7s;
-    }
-
-    .c-button--gooey .c-button__blobs {
-      position: absolute;
-      top: 0; left: 0; right: -1px; bottom: -3px;
-      filter: url(#goo);
-      z-index: -1;
-    }
-
-    .c-button--gooey .c-button__blobs div {
-      position: absolute;
-      width: 34%; height: 100%;
-      border-radius: 100%;
-      background-color: var(--gooey-color);
-      transform: scale(1.4) translateY(125%);
-      transition: 0.7s;
-    }
-
-    .c-button--gooey:hover .c-button__blobs div {
-      transform: scale(1.4) translateY(0);
-    }
-
-    /* ================= RESPONSIVO ================= */
-    @media (max-width: 768px) {
-      .logo img { max-width: 80px; }
-      .nav { height: 60px; }
-      .flip-card__inner { width: 280px; height: 320px; }
-      .flip-card__input { width: 220px; }
-    }
-  </style>
 </head>
 <body class="light-theme">
   <!-- ===== NAVBAR ===== -->
@@ -276,52 +14,52 @@
         <img src="logoatena.png" alt="Logo Atena">
       </a>
 
-      <!-- Switch Tema -->
-      <label class="switch-theme">
-        <input type="checkbox" id="theme-toggle">
+      <!-- Botão Tema -->
+      <label class="switch">
+        <span class="sun">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g fill="#ffd43b">
+              <circle r="5" cy="12" cx="12"></circle>
+              <path d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1-.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-.75.29zm-12.02 12.02a1 1 0 0 1-.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1-.7.24zm6.36-14.36a1 1 0 0 1-1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zm0 17a1 1 0 0 1-1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zm-5.66-14.66a1 1 0 0 1-.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1-.71.29zm12.02 12.02a1 1 0 0 1-.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1-.71.24z"></path>
+            </g>
+          </svg>
+        </span>
+        <span class="moon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+            <path d="m223.5 32c-123.5 0-223.5 100.3-223.5 224s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+          </svg>
+        </span>
+        <input type="checkbox" class="input" id="theme-toggle">
         <span class="slider"></span>
       </label>
 
-      <!-- Botão Gooey -->
-      <a href="index.html" class="c-button c-button--gooey">Início
-        <div class="c-button__blobs">
-          <div></div><div></div><div></div>
+      <!-- Botão Login (atual) -->
+      <a href="login.html" class="user-profile">
+        <div class="user-profile-inner">
+          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <g data-name="Layer 2" id="Layer_2">
+              <path d="m15.626 11.769a6 6 0 1 0 -7.252 0 9.008 9.008 0 0 0 -5.374 8.231 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 9.008 9.008 0 0 0 -5.374-8.231zm-7.626-4.769a4 4 0 1 1 4 4 4 4 0 0 1 -4-4zm10 14h-12a1 1 0 0 1 -1-1 7 7 0 0 1 14 0 1 1 0 0 1 -1 1z"></path>
+            </g>
+          </svg>
+          <p>Entrar</p>
         </div>
       </a>
     </div>
   </header>
 
-  <!-- ===== LOGIN / CADASTRO ===== -->
-  <section class="login-section fade-in">
-    <div class="wrapper">
-      <div class="card-switch">
-        <label class="switch">
-          <input type="checkbox" class="toggle" id="flip-toggle">
-          <span class="slider"></span>
-          <span class="card-side"></span>
-
-          <div class="flip-card__inner">
-            <!-- Login -->
-            <div class="flip-card__front">
-              <div class="title">Entrar</div>
-              <form class="flip-card__form" id="login-form">
-                <input class="flip-card__input" type="email" name="email" placeholder="E-mail" required>
-                <input class="flip-card__input" type="password" name="password" placeholder="Senha" required>
-                <button class="flip-card__btn" type="submit">Entrar!</button>
-              </form>
-            </div>
-            <!-- Cadastro -->
-            <div class="flip-card__back">
-              <div class="title">Cadastrar</div>
-              <form class="flip-card__form" id="signup-form">
-                <input class="flip-card__input" type="text" name="access-key" placeholder="Chave de Acesso" required>
-                <input class="flip-card__input" type="email" name="email" placeholder="E-mail" required>
-                <input class="flip-card__input" type="password" name="password" placeholder="Senha" required>
-                <button class="flip-card__btn" type="submit">Cadastrar!</button>
-              </form>
-            </div>
-          </div>
-        </label>
+  <!-- ===== LOGIN HERO ===== -->
+  <section class="section fade-in" style="min-height: calc(100vh - 80px); display:flex; justify-content:center; align-items:center;">
+    <div class="container" style="max-width:400px;">
+      <div class="card">
+        <h2 style="text-align:center; margin-bottom:30px;">Entrar na Conta</h2>
+        <form id="login-form" action="">
+          <input type="email" name="email" placeholder="E-mail" required style="margin-bottom:15px; width:100%; padding:12px; border-radius:5px; border:none; outline:none;">
+          <input type="password" name="password" placeholder="Senha" required style="margin-bottom:20px; width:100%; padding:12px; border-radius:5px; border:none; outline:none;">
+          <button type="submit" class="btn" style="width:100%;">Entrar</button>
+        </form>
+        <p style="text-align:center; margin-top:15px; color:var(--gray-platform);">
+          Não tem conta? <a href="signup.html" style="color:var(--brand); text-decoration:none;">Cadastrar</a>
+        </p>
       </div>
     </div>
   </section>
@@ -332,21 +70,6 @@
       <p>© 2025 Atena - Todos os direitos reservados.</p>
     </div>
   </footer>
-
-  <!-- SVG GOOEY -->
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display: block; height: 0; width: 0;">
-    <defs>
-      <filter id="goo">
-        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
-        <feColorMatrix in="blur" mode="matrix"
-          values="1 0 0 0 0  
-                  0 1 0 0 0  
-                  0 0 1 0 0  
-                  0 0 0 18 -7" result="goo"/>
-        <feBlend in="SourceGraphic" in2="goo"/>
-      </filter>
-    </defs>
-  </svg>
 
   <script src="script.js"></script>
 </body>
