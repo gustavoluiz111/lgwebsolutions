@@ -3,74 +3,227 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Atena</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Atena - Login</title>
+  <style>
+    /* ===== VARIÁVEIS ===== */
+    :root {
+      --brand: #4b70e2;
+      --bg-light: #f9f9f9;
+      --bg-dark: #0e0e0e;
+      --text-light: #111;
+      --text-dark: #fff;
+      --input-bg: #1a1a1a;
+      --input-border: #444;
+      --error-color: #ff4d4d;
+    }
+
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.light-theme {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    /* ===== CONTAINER ===== */
+    .login-container {
+      background-color: var(--bg-dark);
+      padding: 40px 30px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body.light-theme .login-container {
+      background-color: var(--bg-light);
+    }
+
+    /* ===== LOGO ===== */
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo img {
+      width: 80px;
+      height: auto;
+    }
+
+    /* ===== FORM ===== */
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 12px 12px 40px;
+      border-radius: 8px;
+      border: 1px solid var(--input-border);
+      background-color: var(--input-bg);
+      color: var(--text-dark);
+      font-size: 1rem;
+      transition: border 0.3s, background 0.3s, color 0.3s;
+    }
+
+    body.light-theme .input-group input {
+      background-color: #fff;
+      color: var(--text-light);
+      border: 1px solid #ccc;
+    }
+
+    .input-group .icon {
+      position: absolute;
+      top: 50%;
+      left: 12px;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: #888;
+    }
+
+    /* ===== BUTTON ===== */
+    button {
+      padding: 12px;
+      background-color: var(--brand);
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: opacity 0.3s;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    /* ===== LEMBRAR-ME ===== */
+    .remember-me {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      gap: 8px;
+    }
+
+    /* ===== ERRO ===== */
+    .error-message {
+      color: var(--error-color);
+      margin-bottom: 15px;
+      display: none;
+      font-size: 0.9rem;
+    }
+
+    /* ===== TEMA ===== */
+    .theme-toggle {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    .theme-toggle button {
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      border: 1px solid #888;
+      background: transparent;
+      color: inherit;
+    }
+
+    /* ===== RESPONSIVIDADE ===== */
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 30px 20px;
+      }
+    }
+  </style>
 </head>
-<body class="light-theme">
-  <!-- ===== NAVBAR ===== -->
-  <header class="nav fade-in">
-    <div class="container nav__content">
-      <a href="index.html" class="logo">
-        <img src="logoatena.png" alt="Logo Atena">
-      </a>
+<body class="dark-theme">
 
-      <!-- Botão Tema -->
-      <label class="switch">
-        <span class="sun">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g fill="#ffd43b">
-              <circle r="5" cy="12" cx="12"></circle>
-              <path d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1-.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-.75.29zm-12.02 12.02a1 1 0 0 1-.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1-.7.24zm6.36-14.36a1 1 0 0 1-1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zm0 17a1 1 0 0 1-1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zm-5.66-14.66a1 1 0 0 1-.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1-.71.29zm12.02 12.02a1 1 0 0 1-.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1-.71.24z"></path>
-            </g>
-          </svg>
-        </span>
-        <span class="moon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-            <path d="m223.5 32c-123.5 0-223.5 100.3-223.5 224s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
-          </svg>
-        </span>
-        <input type="checkbox" class="input" id="theme-toggle">
-        <span class="slider"></span>
-      </label>
-
-      <!-- Botão Login (atual) -->
-      <a href="login.html" class="user-profile">
-        <div class="user-profile-inner">
-          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g data-name="Layer 2" id="Layer_2">
-              <path d="m15.626 11.769a6 6 0 1 0 -7.252 0 9.008 9.008 0 0 0 -5.374 8.231 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 9.008 9.008 0 0 0 -5.374-8.231zm-7.626-4.769a4 4 0 1 1 4 4 4 4 0 0 1 -4-4zm10 14h-12a1 1 0 0 1 -1-1 7 7 0 0 1 14 0 1 1 0 0 1 -1 1z"></path>
-            </g>
-          </svg>
-          <p>Entrar</p>
-        </div>
-      </a>
+  <div class="login-container">
+    <!-- LOGO -->
+    <div class="logo">
+      <img src="logoatena.png" alt="Logo Atena">
     </div>
-  </header>
 
-  <!-- ===== LOGIN HERO ===== -->
-  <section class="section fade-in" style="min-height: calc(100vh - 80px); display:flex; justify-content:center; align-items:center;">
-    <div class="container" style="max-width:400px;">
-      <div class="card">
-        <h2 style="text-align:center; margin-bottom:30px;">Entrar na Conta</h2>
-        <form id="login-form" action="">
-          <input type="email" name="email" placeholder="E-mail" required style="margin-bottom:15px; width:100%; padding:12px; border-radius:5px; border:none; outline:none;">
-          <input type="password" name="password" placeholder="Senha" required style="margin-bottom:20px; width:100%; padding:12px; border-radius:5px; border:none; outline:none;">
-          <button type="submit" class="btn" style="width:100%;">Entrar</button>
-        </form>
-        <p style="text-align:center; margin-top:15px; color:var(--gray-platform);">
-          Não tem conta? <a href="signup.html" style="color:var(--brand); text-decoration:none;">Cadastrar</a>
-        </p>
+    <!-- TEMA -->
+    <div class="theme-toggle">
+      <button id="theme-btn">Alternar Tema</button>
+    </div>
+
+    <!-- MENSAGEM DE ERRO -->
+    <div class="error-message" id="error-msg">Por favor, preencha todos os campos.</div>
+
+    <!-- FORMULÁRIO -->
+    <form id="login-form">
+      <div class="input-group">
+        <span class="icon">👤</span>
+        <input type="text" id="username" placeholder="Usuário">
       </div>
-    </div>
-  </section>
+      <div class="input-group">
+        <span class="icon">🔒</span>
+        <input type="password" id="password" placeholder="Senha">
+      </div>
+      <label class="remember-me">
+        <input type="checkbox" id="remember-me">
+        Lembrar-me
+      </label>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
 
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer fade-in">
-    <div class="container footer__content">
-      <p>© 2025 Atena - Todos os direitos reservados.</p>
-    </div>
-  </footer>
+  <script>
+    // ===== VALIDAÇÃO FORMULÁRIO =====
+    const form = document.getElementById('login-form');
+    const errorMsg = document.getElementById('error-msg');
 
-  <script src="script.js"></script>
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      if(!username || !password) {
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      errorMsg.style.display = 'none';
+      alert('Login realizado com sucesso!');
+      // Aqui você pode colocar a lógica real de login
+    });
+
+    // ===== TEMA CLARO/ESCURO =====
+    const themeBtn = document.getElementById('theme-btn');
+    const body = document.body;
+
+    themeBtn.addEventListener('click', () => {
+      body.classList.toggle('light-theme');
+      body.classList.toggle('dark-theme');
+    });
+  </script>
+
 </body>
 </html>
