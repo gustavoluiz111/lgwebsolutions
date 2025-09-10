@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel do Usuário</title>
+  <style>
+    /* ===== MESMO STYLE UNIVERSAL ===== */
+    :root {
+      --brand: #4b70e2;
+      --bg-dark: #0e0e0e;
+      --bg-light: #f9f9f9;
+      --text-light: #fff;
+      --text-dark: #111;
+      --card-hover-shadow: rgba(75, 112, 226, 0.3);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+    body{background:var(--bg-dark);color:var(--text-light);transition:0.3s;}
+    body.light-theme{background:var(--bg-light);color:var(--text-dark);}
+    .nav{position:fixed;top:0;width:100%;background:rgba(0,0,0,0.8);padding:15px 0;display:flex;justify-content:center;z-index:1000;}
+    .nav__content{width:90%;max-width:1200px;display:flex;justify-content:space-between;align-items:center;}
+    .nav a{color:var(--text-light);text-decoration:none;font-weight:bold;margin-left:15px;transition:color 0.3s;}
+    .nav a:hover{color:var(--brand);}
+    .container{width:90%;max-width:1200px;margin:0 auto;padding-top:80px;}
+    .card{background:#1a1a1a;padding:20px;border-radius:10px;box-shadow:0 10px 20px var(--card-hover-shadow);margin-bottom:20px;transition:0.3s;}
+    body.light-theme .card{background:#fff;color:#111;}
+    button{padding:10px 20px;border:none;border-radius:5px;background:var(--brand);color:#fff;cursor:pointer;transition:0.3s;}
+    button:hover{opacity:0.9;}
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__content">
+      <h2>Painel do Usuário</h2>
+      <div>
+        <a href="index.html">Início</a>
+        <a href="#" id="logout-btn">Sair</a>
+        <button id="theme-toggle">Tema</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h3>Bem-vindo!</h3>
+      <p>Você está logado como: <strong id="user-email"></strong></p>
+    </div>
+
+    <div class="card">
+      <h3>Conteúdo do Usuário</h3>
+      <p>Aqui você pode colocar qualquer informação exclusiva do usuário.</p>
+    </div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script>
+    // CONFIGURAÇÃO FIREBASE
+    const firebaseConfig = {
+      apiKey: "AIzaSyCrQVOUQsWJGKpMO6ceGwshIKVkkuzJKxI",
+      authDomain: "plataforma-estudos-570f3.firebaseapp.com",
+      projectId: "plataforma-estudos-570f3",
+      storageBucket: "plataforma-estudos-570f3.appspot.com",
+      messagingSenderId: "1096880393119",
+      appId: "1:1096880393119:web:EXEMPLO123456"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // CHECA SE USUÁRIO ESTÁ LOGADO
+    auth.onAuthStateChanged(user=>{
+      if(!user){ window.location.href='login.html'; return; }
+      document.getElementById('user-email').textContent = user.email;
+    });
+
+    // LOGOUT
+    document.getElementById('logout-btn').addEventListener('click', ()=>{
+      auth.signOut().then(()=>{ window.location.href='login.html'; });
+    });
+
+    // TEMA
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', ()=>{ document.body.classList.toggle('light-theme'); });
+  </script>
+
+</body>
+</html>
