@@ -3,60 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel do Usuário</title>
-  <style>
-    /* ===== MESMO STYLE UNIVERSAL ===== */
-    :root {
-      --brand: #4b70e2;
-      --bg-dark: #0e0e0e;
-      --bg-light: #f9f9f9;
-      --text-light: #fff;
-      --text-dark: #111;
-      --card-hover-shadow: rgba(75, 112, 226, 0.3);
-    }
-    *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
-    body{background:var(--bg-dark);color:var(--text-light);transition:0.3s;}
-    body.light-theme{background:var(--bg-light);color:var(--text-dark);}
-    .nav{position:fixed;top:0;width:100%;background:rgba(0,0,0,0.8);padding:15px 0;display:flex;justify-content:center;z-index:1000;}
-    .nav__content{width:90%;max-width:1200px;display:flex;justify-content:space-between;align-items:center;}
-    .nav a{color:var(--text-light);text-decoration:none;font-weight:bold;margin-left:15px;transition:color 0.3s;}
-    .nav a:hover{color:var(--brand);}
-    .container{width:90%;max-width:1200px;margin:0 auto;padding-top:80px;}
-    .card{background:#1a1a1a;padding:20px;border-radius:10px;box-shadow:0 10px 20px var(--card-hover-shadow);margin-bottom:20px;transition:0.3s;}
-    body.light-theme .card{background:#fff;color:#111;}
-    button{padding:10px 20px;border:none;border-radius:5px;background:var(--brand);color:#fff;cursor:pointer;transition:0.3s;}
-    button:hover{opacity:0.9;}
-  </style>
+  <title>Atena - Painel do Aluno</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
 <body>
 
+  <!-- Navbar -->
   <header class="nav">
-    <div class="nav__content">
-      <h2>Painel do Usuário</h2>
-      <div>
-        <a href="index.html">Início</a>
+    <div class="container nav__content">
+      <h1 class="logo">📘 Atena</h1>
+      <nav class="menu">
         <a href="#" id="logout-btn">Sair</a>
-        <button id="theme-toggle">Tema</button>
-      </div>
+      </nav>
     </div>
   </header>
 
-  <div class="container">
-    <div class="card">
-      <h3>Bem-vindo!</h3>
-      <p>Você está logado como: <strong id="user-email"></strong></p>
-    </div>
+  <div class="container" style="margin-top:100px; display:flex; gap:20px;">
+    
+    <!-- Sidebar -->
+    <aside style="min-width:220px; background:#1a1a1a; padding:20px; border-radius:10px; height:fit-content;">
+      <h3>Menu</h3>
+      <ul style="list-style:none; margin-top:15px;">
+        <li><a href="#">🏫 Turmas</a></li>
+        <li><a href="#">📚 Biblioteca</a></li>
+        <li><a href="#">📝 Provas Antigas</a></li>
+        <li><a href="#">💬 Fórum</a></li>
+        <li><a href="#">🛠 Suporte</a></li>
+        <li><a href="#">📊 Estatísticas</a></li>
+        <li><a href="#">📅 Calendário</a></li>
+      </ul>
+    </aside>
 
-    <div class="card">
-      <h3>Conteúdo do Usuário</h3>
-      <p>Aqui você pode colocar qualquer informação exclusiva do usuário.</p>
-    </div>
+    <!-- Conteúdo Principal -->
+    <main style="flex:1;">
+      <h2>Bem-vindo ao seu Painel</h2>
+      <p>Confira seu progresso e acesse os recursos da plataforma.</p>
+
+      <div class="grid cards" style="margin-top:30px;">
+        <div class="card">
+          <h3>📈 Progresso</h3>
+          <p>Você concluiu <strong>3/10</strong> atividades.</p>
+        </div>
+        <div class="card">
+          <h3>📂 Últimos Materiais</h3>
+          <p>- Simulado de Matemática<br>- Ficha de História</p>
+        </div>
+        <div class="card">
+          <h3>📅 Próximos Eventos</h3>
+          <p>Prova de Física em <strong>15/09</strong>.</p>
+        </div>
+      </div>
+    </main>
+
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <!-- Scripts -->
+  <script src="script.js"></script>
   <script>
-    // CONFIGURAÇÃO FIREBASE
+    // Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyCrQVOUQsWJGKpMO6ceGwshIKVkkuzJKxI",
       authDomain: "plataforma-estudos-570f3.firebaseapp.com",
@@ -68,21 +75,19 @@
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    // CHECA SE USUÁRIO ESTÁ LOGADO
-    auth.onAuthStateChanged(user=>{
-      if(!user){ window.location.href='login.html'; return; }
-      document.getElementById('user-email').textContent = user.email;
+    // Verifica se usuário está logado
+    auth.onAuthStateChanged(user => {
+      if (!user) {
+        window.location.href = "login.html";
+      }
     });
 
-    // LOGOUT
-    document.getElementById('logout-btn').addEventListener('click', ()=>{
-      auth.signOut().then(()=>{ window.location.href='login.html'; });
+    // Logout
+    document.getElementById("logout-btn").addEventListener("click", () => {
+      auth.signOut().then(() => {
+        window.location.href = "login.html";
+      });
     });
-
-    // TEMA
-    const themeToggle = document.getElementById('theme-toggle');
-    themeToggle.addEventListener('click', ()=>{ document.body.classList.toggle('light-theme'); });
   </script>
-
 </body>
 </html>
