@@ -9,108 +9,119 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-  :root {
-    --brand: #00A9A3;
-    --bg-dark: #1a1a1a; /* fundo escuro */
-    --bg-light: #FFFFFF; /* cor clara */
-    --text-light: #FFFFFF;
-    --text-dark: #111;
-    --card-hover-shadow: rgba(0,169,163,0.3);
-  }
+:root {
+  --brand: #00A9A3;
+  --bg-dark: #1a1a1a;
+  --bg-light: #FFFFFF;
+  --text-light: #FFFFFF;
+  --text-dark: #111;
+  --card-hover-shadow: rgba(0,169,163,0.3);
+}
 
-  * { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
-  body { background: var(--bg-dark); color: var(--text-light); transition: background 0.3s, color 0.3s; }
-  body.light-theme { background: var(--bg-light); color: var(--text-dark); }
+* { margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
+body { background: var(--bg-dark); color: var(--text-light); transition: background 0.3s, color 0.3s; }
+body.light-theme { background: var(--bg-light); color: var(--text-dark); }
 
-  /* NAVBAR */
-  .navbar {
-    position: fixed; top:0; left:0; width:100%; height:60px;
-    background: rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:space-between; padding:0 20px;
-    z-index:1000; transition: background 0.3s;
-  }
-  body.light-theme .navbar { background: rgba(249,249,249,0.9); }
+/* NAVBAR */
+.navbar {
+  position: fixed; top:0; left:0; width:100%; height:60px;
+  background: rgba(0,0,0,0.85); display:flex; align-items:center; justify-content:space-between; padding:0 20px;
+  z-index:1000; transition: background 0.3s;
+}
+body.light-theme .navbar { background: rgba(249,249,249,0.9); }
+.navbar .logo { font-weight:bold; font-size:1.5rem; color: var(--brand); }
+.navbar .hamburger { cursor:pointer; display:flex; flex-direction:column; justify-content:space-around; width:25px; height:20px; }
+.hamburger div { width:100%; height:3px; background: var(--text-light); transition: 0.3s; }
+body.light-theme .hamburger div { background: var(--text-dark); }
 
-  .navbar .logo { font-weight:bold; font-size:1.5rem; color: var(--brand); }
-  .navbar .hamburger { cursor:pointer; display:flex; flex-direction:column; justify-content:space-around; width:25px; height:20px; }
-  .hamburger div { width:100%; height:3px; background: var(--text-light); transition: 0.3s; }
-  body.light-theme .hamburger div { background: var(--text-dark); }
+/* SIDEBAR ESTILIZADA */
+.sidebar {
+  position: fixed;
+  top:0;
+  left: -260px;
+  width: 240px;
+  height: 100%;
+  background: #4fb1a9;
+  transition: 0.3s;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 20px 0;
+}
+.sidebar.active { left: 0; }
 
-  /* NOVA SIDEBAR */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -260px;
-    width: 240px;
-    height: 100%;
-    background: #4fb1a9;
-    transition: 0.3s;
-    z-index: 1000;
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    padding: 20px 0;
-  }
-  .sidebar.active { left: 0; }
+.sidebar-content {
+  background: #6cbcb6;
+  border-radius: 0 15px 15px 0;
+  padding: 20px 10px;
+  width: 200px;
+  height: 100%;
+  position: relative;
+  display:flex;
+  flex-direction: column;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #000;
+}
+.sidebar-content ul {
+  list-style: none;
+  padding: 70px 0 0;
+  margin: 0;
+  flex-grow:1;
+}
+.sidebar-content li {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.sidebar-content li i {
+  margin-right: 10px;
+  font-size: 20px;
+}
+.sidebar-content li a {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.sidebar-content li:hover { color: #fff; }
 
-  .sidebar-content {
-    background: #6cbcb6;
-    border-radius: 0 15px 15px 0;
-    padding: 20px 10px;
-    width: 200px;
-    height: 100%;
-    position: relative;
-  }
+body.light-theme .sidebar { background:#f1f1f1; }
+body.light-theme .sidebar-content { background:#e1e1e1; }
+body.light-theme .sidebar-content li { color:#111; }
+body.light-theme .sidebar-content li:hover { color:#fff; }
 
-  .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
-    color: #000;
-  }
+/* SWITCH DENTRO DA SIDEBAR */
+.switch { font-size: 17px; position: relative; display: inline-block; width: 5em; height: 2.5em; user-select: none; margin-top: 20px; }
+.switch .cb { opacity:0; width:0; height:0; }
+.toggle { position:absolute; cursor:pointer; width:100%; height:100%; background-color: var(--brand); border-radius:0.1em; transition:0.4s; text-transform:uppercase; font-weight:700; overflow:hidden; box-shadow:-0.3em 0 0 0 var(--brand),-0.3em 0.3em 0 0 var(--brand),0.3em 0 0 0 var(--brand),0.3em 0.3em 0 0 var(--brand),0 0.3em 0 0 var(--brand); }
+.toggle > .left, .toggle > .right { position:absolute; display:flex; width:50%; height:88%; background:#fff; align-items:center; justify-content:center; transform-style:preserve-3d; transition: all 150ms; }
+.toggle > .left { left:0; bottom:0; }
+.toggle > .right { right:1px; bottom:0; color: var(--brand); }
+.switch input:checked + .toggle > .left { transform: rotateX(10deg) rotateY(45deg); color:#fff; }
+.switch input:checked + .toggle > .right { transform: rotateX(10deg) rotateY(0deg); color: var(--brand); }
 
-  .sidebar-content ul {
-    list-style: none;
-    padding: 50px 0 0;
-    margin: 0;
-  }
-  .sidebar-content li {
-    display: flex;
-    align-items: center;
-    margin: 20px 0;
-    font-size: 18px;
-    font-weight: bold;
-    color: #000;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  .sidebar-content li i {
-    margin-right: 10px;
-    font-size: 22px;
-  }
-  .sidebar-content li a {
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-  .sidebar-content li:hover { color: #fff; }
+/* MAIN */
+.main { margin-left:0; padding:80px 20px 20px 20px; transition: margin-left 0.3s; }
 
-  body.light-theme .sidebar { background:#f1f1f1; }
-  body.light-theme .sidebar-content { background:#e1e1e1; }
-  body.light-theme .sidebar-content li { color:#111; }
-  body.light-theme .sidebar-content li:hover { color:#fff; }
+/* CARDS */
+.cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:20px; }
+.card { background:#2a2a2a; padding:20px; border-radius:12px; transition: transform 0.3s, box-shadow 0.3s; cursor:pointer; }
+.card:hover { transform:translateY(-5px); box-shadow:0 10px 20px var(--card-hover-shadow); }
+body.light-theme .card { background:#fff; color:#111; }
 
-  /* MAIN */
-  .main { margin-left:0; padding:80px 20px 20px 20px; transition: margin-left 0.3s; }
-
-  /* CARDS */
-  .cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:20px; }
-  .card { background:#2a2a2a; padding:20px; border-radius:12px; transition: transform 0.3s, box-shadow 0.3s; cursor:pointer; }
-  .card:hover { transform:translateY(-5px); box-shadow:0 10px 20px var(--card-hover-shadow); }
-  body.light-theme .card { background:#fff; color:#111; }
 </style>
 </head>
 <body>
@@ -120,7 +131,7 @@
   <div class="hamburger" id="menu-toggle"><div></div><div></div><div></div></div>
 </div>
 
-<!-- NOVA SIDEBAR -->
+<!-- SIDEBAR COMPLETA COM TODOS OS LINKS -->
 <div class="sidebar" id="sidebar">
   <div class="sidebar-content">
     <i class="fa-solid fa-xmark close-btn" id="close-btn"></i>
@@ -130,6 +141,12 @@
       <li><a href="provas.html"><i class="fa-solid fa-clipboard-check"></i> Provas</a></li>
       <li><a href="estatisticas.html"><i class="fa-solid fa-chart-line"></i> Estatísticas</a></li>
       <li><a href="calendario.html"><i class="fa-regular fa-calendar"></i> Calendário</a></li>
+      <li><a href="#aulas"><i class="fa-solid fa-chalkboard-user"></i> Aulas</a></li>
+      <li><a href="#painel"><i class="fa-solid fa-user-graduate"></i> Painel do aluno</a></li>
+      <li><a href="#editais"><i class="fa-regular fa-file-lines"></i> Editais</a></li>
+      <li><a href="#forum"><i class="fa-solid fa-comments"></i> Fórum</a></li>
+      <li><a href="#avisos"><i class="fa-solid fa-bullhorn"></i> Avisos</a></li>
+      <li><a href="#suporte"><i class="fa-solid fa-headset"></i> Suporte</a></li>
     </ul>
     <label class="switch">
       <input class="cb" type="checkbox" id="themeSwitch"/>
@@ -153,40 +170,37 @@
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyCrQVOUQsWJGKpMO6ceGwshIKVkkuzJKxI",
-    authDomain: "plataforma-estudos-570f3.firebaseapp.com",
-    projectId: "plataforma-estudos-570f3",
-    storageBucket: "plataforma-estudos-570f3.appspot.com",
-    messagingSenderId: "1096880393119",
-    appId: "1:1096880393119:web:EXEMPLO123456"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+const firebaseConfig = {
+  apiKey: "AIzaSyCrQVOUQsWJGKpMO6ceGwshIKVkkuzJKxI",
+  authDomain: "plataforma-estudos-570f3.firebaseapp.com",
+  projectId: "plataforma-estudos-570f3",
+  storageBucket: "plataforma-estudos-570f3.appspot.com",
+  messagingSenderId: "1096880393119",
+  appId: "1:1096880393119:web:EXEMPLO123456"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-  auth.onAuthStateChanged(user=>{
-    if(!user) window.location.href='login.html';
-  });
+auth.onAuthStateChanged(user=>{
+  if(!user) window.location.href='login.html';
+});
 
-  const menuBtn = document.getElementById('menu-toggle');
-  const sidebar = document.getElementById('sidebar');
-  const closeBtn = document.getElementById('close-btn');
+// Sidebar toggle
+const menuBtn = document.getElementById('menu-toggle');
+const sidebar = document.getElementById('sidebar');
+const closeBtn = document.getElementById('close-btn');
 
-  menuBtn.addEventListener('click', () => {
-    sidebar.classList.add('active');
-  });
-  closeBtn.addEventListener('click', () => {
-    sidebar.classList.remove('active');
-  });
+menuBtn.addEventListener('click', () => sidebar.classList.add('active'));
+closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
 
-  // Fecha sidebar ao clicar em um link
-  document.querySelectorAll('.sidebar-content a').forEach(link=>{
-    link.addEventListener('click', ()=> sidebar.classList.remove('active'));
-  });
+// Fecha sidebar ao clicar em um link
+document.querySelectorAll('.sidebar-content a').forEach(link=>{
+  link.addEventListener('click', ()=> sidebar.classList.remove('active'));
+});
 
-  // Switch tema
-  const themeSwitch = document.getElementById('themeSwitch');
-  themeSwitch.addEventListener('change', ()=> document.body.classList.toggle('light-theme'));
+// Switch tema
+const themeSwitch = document.getElementById('themeSwitch');
+themeSwitch.addEventListener('change', ()=> document.body.classList.toggle('light-theme'));
 </script>
 
 </body>
