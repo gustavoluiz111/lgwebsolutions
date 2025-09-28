@@ -3,201 +3,214 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atena - Plataforma de Estudos</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Grupo Atena</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    /* Definindo variáveis CSS para os temas */
+    /* ===== VARIÁVEIS DE CORES ===== */
     :root {
-      --bg-light: #fff; /* Cor de fundo do tema claro */
-      --bg-dark: #333; /* Cor de fundo do tema escuro */
+      --preto: #000000;
+      --verde-agua: #00A39E;
+      --verde-agua-escuro: #005953;
+      --verde-agua-muito-escuro: #2A5958;
+      --azul-agua-claro: #66CCCC;
+      --roxo-vibrante: #6633FF;
+      --cinza-escuro: #333333;
+      --branco: #FFFFFF;
+      --font-family: 'Poppins', sans-serif;
     }
 
-    /* Estilos para a logo (tamanho reduzido) */
-    .logo img {
-      max-width: 90px; /* Tamanho reduzido para desktop */
-      height: auto; /* Mantém a proporção */
+    /* ===== RESET ===== */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+        font-family: var(--font-family);
+        background-color: #19a49b; /* fundo ciano */
+        color: var(--branco); /* contraste dos textos */
+        scroll-behavior: smooth;
+        padding-top: 80px;
     }
+    h1,h2,h3 { font-weight:700; }
 
-    /* Estilos para a navbar */
+    /* ===== NAVBAR ===== */
     .nav {
-      height: 80px; /* Altura da navbar */
-      width: 100%; /* Ocupa toda a largura */
+      height: 80px;
+      width: 100%;
       display: flex;
-      align-items: center; /* Centraliza verticalmente */
-      background-color: transparent; /* Navbar transparente */
-      position: fixed; /* Fixa a navbar no topo */
+      align-items: center;
+      position: fixed;
       top: 0;
       left: 0;
-      z-index: 1000; /* Garante que fique acima de outros elementos */
-      transition: background-color 0.3s ease; /* Suaviza a transição de tema */
+      z-index: 1000;
+      padding: 0 20px;
+      background-color: var(--branco);
+      border-bottom: 2px solid var(--verde-agua-escuro);
     }
+    .nav__content { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1200px; margin: 0 auto; }
+    .logo img { max-width: 90px; height: auto; }
+    .user-profile { display: flex; align-items: center; color: var(--preto); text-decoration: none; font-weight:600; }
+    .user-profile svg { width: 24px; height: 24px; margin-right: 8px; fill: currentColor; }
 
-    /* Aplica a cor de fundo com base no tema */
-    body.light-theme .nav {
-      background-color: var(--bg-light); /* Tema claro */
-    }
+    /* ===== HERO ===== */
+    .hero { padding: 100px 20px 150px; position: relative; }
+    .hero .container { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; max-width: 1100px; margin: 0 auto; }
+    .hero-text h1 { font-size: 3.5rem; line-height: 1.2; }
+    .hero-text h1 span { display:block; }
+    .hero-text p { font-size: 1.1rem; margin:20px 0; max-width:450px; }
+    .hero-photo { width:100%; max-width:350px; border-radius:20px; display:block; margin-left:auto; }
 
-    body.dark-theme .nav {
-      background-color: var(--bg-dark); /* Tema escuro */
-    }
+    /* ===== SEÇÕES ===== */
+    section { padding: 80px 0; }
+    h2 { text-align: center; font-size: 2.5rem; margin-bottom:50px; color: var(--verde-agua-muito-escuro); }
 
-    .nav__content {
-      display: flex;
-      justify-content: space-between; /* Espaça logo, tema e login */
-      align-items: center;
-      max-width: 1200px; /* Largura máxima do conteúdo */
-      width: 100%;
-      padding: 0 20px; /* Espaçamento interno */
-      margin: 0 auto; /* Centraliza */
-    }
+    /* Cards */
+    .cards-grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; max-width:1100px; margin:0 auto; }
+    .card { background-color: var(--branco); border-radius:15px; padding:30px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.08); transition:transform 0.3s ease; color: var(--preto); }
+    .card:hover { transform: translateY(-10px); }
+    .card h3 { color: var(--verde-agua-escuro); font-size:1.2rem; margin-bottom:15px; }
+    .card p { margin-bottom:25px; }
+    .button { display:inline-block; background-color: var(--verde-agua); color: var(--branco); padding:12px 30px; border-radius:8px; text-decoration:none; font-weight:600; transition: background-color 0.3s ease; border:none; cursor:pointer; }
+    .button:hover { background-color: var(--verde-agua-escuro); }
 
-    /* Responsividade para telas menores */
-    @media (max-width: 768px) {
-      .logo img {
-        max-width: 80px; /* Tamanho menor para a logo */
-      }
+    /* Funcionalidades */
+    .timeline-card { display:grid; grid-template-columns:repeat(6,1fr); gap:25px; background-color: var(--branco); border-radius:15px; padding:40px; box-shadow:0 10px 30px rgba(0,0,0,0.08); color: var(--preto); }
+    .timeline-item h3 { color: var(--roxo-vibrante); font-size:0.8rem; font-weight:700; margin-bottom:10px; }
+    .timeline-item p { font-size:0.9rem; }
 
-      .nav {
-        height: 60px; /* Altura menor para telas pequenas */
-      }
+    /* Milestones */
+    .milestones { background-color: var(--verde-agua-muito-escuro); }
+    .milestones h2 { color: var(--branco); }
+    .milestone-value { font-size:3.5rem; font-weight:700; color: var(--verde-agua); }
 
-      .nav__content {
-        padding: 0 10px; /* Menos padding em telas menores */
-      }
-    }
+    /* Info Section */
+    .two-column-layout { display:grid; grid-template-columns:1fr 1.2fr; gap:60px; align-items:center; max-width:1100px; margin:0 auto; }
+    .info-card { background-color: var(--branco); padding:40px; border-radius:15px; color: var(--preto); }
+    .info-card h3 { color: var(--verde-agua-escuro); font-size:1.5rem; margin-bottom:15px; }
 
-    /* Ajuste para evitar sobreposição de conteúdo */
-    body {
-      padding-top: 80px; /* Espaço para a navbar fixa */
-    }
+    /* Footer */
+    footer { background-color: var(--preto); color: var(--branco); padding:60px 20px; }
+    footer .container { max-width:600px; margin:0 auto; }
 
-    @media (max-width: 768px) {
-      body {
-        padding-top: 60px;
-      }
-    }
+    /* Responsividade */
+    @media(max-width:992px){.hero .container{grid-template-columns:1fr;text-align:center;}.cards-grid-3{grid-template-columns:1fr 1fr;}.timeline-card{grid-template-columns:repeat(3,1fr);}.two-column-layout{grid-template-columns:1fr;}}
+    @media(max-width:768px){.cards-grid-3,.timeline-card{grid-template-columns:1fr;}.hero-text h1{font-size:2.5rem;}}
+    
+    /* Fade-in scroll */
+    .fade-in { opacity:0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.show { opacity:1; transform: translateY(0); }
   </style>
 </head>
-<body class="light-theme"> <!-- Tema padrão: claro -->
-  <!-- ===== NAVBAR ===== -->
-  <header class="nav fade-in">
-    <div class="container nav__content">
-      <a href="#" class="logo">
-        <img src="logoatena.png" alt="Logo Atena">
-      </a>
- 
-     <!-- Botão Tema -->
-      <label class="switch">
-        <span class="sun">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g fill="#ffd43b">
-              <circle r="5" cy="12" cx="12"></circle>
-              <path d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1-.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1-.75.29zm-12.02 12.02a1 1 0 0 1-.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1-.7.24zm6.36-14.36a1 1 0 0 1-1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zm0 17a1 1 0 0 1-1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1-1 1zm-5.66-14.66a1 1 0 0 1-.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1-.71.29zm12.02 12.02a1 1 0 0 1-.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1-.71.24z"></path>
-            </g>
-          </svg>
-        </span>
-        <span class="moon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-            <path d="m223.5 32c-123.5 0-223.5 100.3-223.5 224s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
-          </svg>
-        </span>
-        <input type="checkbox" class="input" id="theme-toggle">
-        <span class="slider"></span>
-      </label>
+<body>
 
-      <!-- Botão Login -->
+  <!-- NAVBAR -->
+  <header class="nav">
+    <div class="nav__content">
+      <a href="#" class="logo"><img src="logoatena.png" alt="Logo Atena"></a>
       <a href="login.html" class="user-profile">
-        <div class="user-profile-inner">
-          <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-            <g data-name="Layer 2" id="Layer_2">
-              <path d="m15.626 11.769a6 6 0 1 0 -7.252 0 9.008 9.008 0 0 0 -5.374 8.231 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 9.008 9.008 0 0 0 -5.374-8.231zm-7.626-4.769a4 4 0 1 1 4 4 4 4 0 0 1 -4-4zm10 14h-12a1 1 0 0 1 -1-1 7 7 0 0 1 14 0 1 1 0 0 1 -1 1z"></path>
-            </g>
-          </svg>
-          <p>Entrar</p>
-        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.626 11.769a6 6 0 1 0 -7.252 0 9.008 9.008 0 0 0 -5.374 8.231 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 9.008 9.008 0 0 0 -5.374-8.231zm-7.626-4.769a4 4 0 1 1 4 4 4 4 0 0 1 -4-4zm10 14h-12a1 1 0 0 1 -1-1 7 7 0 0 1 14 0 1 1 0 0 1 -1 1z"></path></svg>
+        Entrar
       </a>
     </div>
   </header>
 
-  <!-- ===== HERO ===== -->
-  <section id="home" class="hero fade-in">
-    <div class="container hero__content">
-      <h1>Aprenda no <span class="atenacolor">Atena</span></h1>
-      <p>Sua plataforma de estudos digital para alcançar novos níveis de conhecimento.</p>
-      <div class="hero__btns">
-        <a href="#cursos" class="btn">Explorar Cursos</a>
-        <a href="#como-funciona" class="btn--ghost">Saiba Mais</a>
+  <main>
+    <!-- HERO -->
+    <section class="hero fade-in">
+      <div class="container">
+        <div class="hero-text">
+          <h1><span>Se prepare</span><span>para o <b>Futuro</b></span></h1>
+          <p>Aprenda com os melhores, escolha seu curso preparatório e garanta a aprovação!</p>
+        </div>
+        <div>
+          <img src="https://placehold.co/350x480/cccccc/ffffff?text=Sua+Foto+Aqui" alt="Aluna do Grupo Atena" class="hero-photo">
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===== CURSOS POPULARES ===== -->
-  <section id="cursos" class="section fade-in">
+    <!-- CURSOS -->
+    <section class="courses fade-in">
+      <h2>Nossos Cursos</h2>
+      <div class="cards-grid-3">
+        <div class="card"><h3>Escolha sua turma e busque os resultados</h3><a href="#" class="button">LER MAIS</a></div>
+        <div class="card"><h3>Se prepare com os melhores professores</h3><a href="#" class="button">LER MAIS</a></div>
+        <div class="card"><h3>Antes do resultado, vem o esforço</h3><a href="#" class="button">LER MAIS</a></div>
+      </div>
+    </section>
+
+    <!-- FUNCIONALIDADES -->
+    <section class="functionalities fade-in">
+      <h2>Conheça nossas funcionalidades</h2>
+      <div class="timeline-card">
+        <div class="timeline-item"><h3>PRIMEIRO MÊS</h3><p>Auditar estatísticas atuais de clientes</p></div>
+        <div class="timeline-item"><h3>SEGUNDO MÊS</h3><p>Conduzir discussões com grupos focais</p></div>
+        <div class="timeline-item"><h3>TERCEIRO MÊS</h3><p>Aplicar a primeira estratégia</p></div>
+        <div class="timeline-item"><h3>QUARTO MÊS</h3><p>Analisar e monitorar resultados</p></div>
+        <div class="timeline-item"><h3>QUINTO MÊS</h3><p>Aprender as lições e aplicar</p></div>
+        <div class="timeline-item"><h3>SEXTO MÊS</h3><p>Intensificar nosso programa</p></div>
+      </div>
+    </section>
+
+    <!-- MARCOS -->
+    <section class="milestones fade-in">
+      <h2>Nossos Marcos</h2>
+      <div class="cards-grid-3">
+        <div class="card"><div class="milestone-value">75%</div><p>Porcentagem da implementação do novo sistema</p></div>
+        <div class="card"><div class="milestone-value">40%</div><p>Aumento das renovações e novos projetos com clientes existentes</p></div>
+        <div class="card"><div class="milestone-value">6 MI</div><p>Receita de junho de 2024</p></div>
+      </div>
+    </section>
+
+    <!-- TECNOLOGIA -->
+    <section class="info-section fade-in">
+      <div class="two-column-layout">
+        <img src="https://placehold.co/500x550/cccccc/ffffff?text=Imagem+Tecnologia" alt="Pessoa usando nova tecnologia" class="info-image">
+        <div class="info-card">
+          <h3>Nova Tecnologia</h3>
+          <p>Integramos nosso sistema para conectar todos os departamentos.</p>
+          <p>Disponível para 100% da equipe, ainda em fase beta. Seu feedback é bem-vindo.</p>
+          <a href="#" class="button">SAIBA MAIS</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRÓXIMOS PASSOS -->
+    <section class="next-steps fade-in">
+      <h2>O Que Vem a Seguir</h2>
+      <div class="cards-grid-3">
+        <div class="card"><h3>Avaliação do novo sistema</h3><p>Identificar resultados positivos e áreas que precisam de melhoria.</p><a href="#" class="button">LER MAIS</a></div>
+        <div class="card"><h3>Perfis de clientes e projetos</h3><p>Verificar tendências e oportunidades que os clientes procuram.</p><a href="#" class="button">LER MAIS</a></div>
+        <div class="card"><h3>Métricas de Atendimento</h3><p>Identificar áreas de prioridade e determinar como mensurá-las.</p><a href="#" class="button">LER MAIS</a></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="fade-in">
     <div class="container">
-      <h2>Cursos Populares</h2>
-      <div class="grid cards">
-        <div class="card fade-in">
-          <h3>SSA 1,2 e 3</h3>
-          <p>Se prepare com os melhores professores.</p>
-          <a href="#" class="btn--ghost">Ver mais</a>
-        </div>
-        <div class="card fade-in">
-          <h3>Pré-ENEM</h3>
-          <p>Antes do resultado, vem o esforço.</p>
-          <a href="#" class="btn--ghost">Ver mais</a>
-        </div>
-        <div class="card fade-in">
-          <h3>Redação</h3>
-          <p>Redija textos com excelência.</p>
-          <a href="#" class="btn--ghost">Ver mais</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== COMO FUNCIONA ===== -->
-  <section id="como-funciona" class="section alt fade-in">
-    <div class="container">
-      <h2>Como Funciona</h2>
-      <div class="grid steps">
-        <div class="step fade-in">📋 <p>Cadastre-se</p></div>
-        <div class="step fade-in">📚 <p>Escolha uma turma</p></div>
-        <div class="step fade-in">💻 <p>Estude presencialmente e online</p></div>
-        <div class="step fade-in">🏆 <p>Se dedique e alcance seus objetivos</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== DEPOIMENTOS ===== -->
-  <section id="depoimentos" class="section fade-in">
-    <div class="container">
-      <h2>O que nossos alunos dizem</h2>
-      <div class="grid testimonials">
-        <div class="card fade-in">
-          <p>"A Atena mudou a forma como aprendo, é simples e prática!"</p>
-          <h4>Maria Silva</h4>
-        </div>
-        <div class="card fade-in">
-          <p>"Os cursos são incríveis e já me ajudaram na escola."</p>
-          <h4>João Pereira</h4>
-        </div>
-        <div class="card fade-in">
-          <p>"Quem ensina lá é incrível, eles sabem dar aula."</p>
-          <h4>Ana Costa</h4>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== FOOTER ===== -->
-  <footer id="contato" class="footer fade-in">
-    <div class="container footer__content">
-      <p>© 2025 Atena - Todos os direitos reservados.</p>
+      <p>Supra Perito Ltda.</p>
+      <h2>Fale Conosco</h2>
+      <p><span>E-mail</span> OLA@GRANDESITE.COM.BR</p>
+      <p><span>Endereço</span> RUA ALEGRE, 123<br>CIDADE BRASILEIRA</p>
+      <p><span>Telefone</span> (12) 3456-7890</p>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Fade-in scroll
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = { threshold: 0.2 };
+    const appearOnScroll = new IntersectionObserver(function(entries, observer){
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, appearOptions);
+    faders.forEach(fader => appearOnScroll.observe(fader));
+  </script>
+
 </body>
-          </html>
-
-
+</html>
